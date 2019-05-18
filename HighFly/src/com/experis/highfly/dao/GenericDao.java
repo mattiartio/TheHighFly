@@ -1,5 +1,7 @@
 package com.experis.highfly.dao;
 
+import java.util.List;
+
 public interface GenericDao<T>
 {
 
@@ -12,5 +14,7 @@ public interface GenericDao<T>
 	T find(Object id);
 
 	T update(T t);
+
+	List<T> findAll();
 
 }
