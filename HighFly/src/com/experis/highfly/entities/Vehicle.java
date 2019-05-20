@@ -24,7 +24,7 @@ public class Vehicle implements Serializable {
 	@Column(name = "vehicle_id")
 	private int id;
 
-	@Column(name = "vehicle_type")
+	@Column(name = "vehicle_type", unique = true)
 	@OneToMany(mappedBy = "type")
 	private String type;
 

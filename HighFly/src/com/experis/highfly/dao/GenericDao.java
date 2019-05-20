@@ -2,6 +2,8 @@ package com.experis.highfly.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 public interface GenericDao<T>
 {
 
@@ -16,5 +18,7 @@ public interface GenericDao<T>
 	T update(T t);
 
 	List<T> findAll();
+
+	EntityManager getEntityManager();
 
 }

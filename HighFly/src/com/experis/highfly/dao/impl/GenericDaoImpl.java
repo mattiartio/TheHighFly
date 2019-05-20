@@ -6,20 +6,18 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import com.experis.highfly.dao.GenericDao;
-import com.experis.highfly.services.JpaService;
 
 
 public class GenericDaoImpl<T> implements GenericDao<T> {
-	@Autowired
-	@Qualifier(value = "jpaService")
-	private JpaService jpaService;
-
+	
+	/**
+	 * Iniezione dell'EntityManager in modo automatico.
+	 */
+	@PersistenceContext
 	protected EntityManager em;
 
 	private Class<T> type;
@@ -32,7 +30,6 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 		ParameterizedType pt = (ParameterizedType) t;
 		type = (Class) pt.getActualTypeArguments()[0];
 
-		this.em = jpaService.getDatabaseConnection();
 	}
 
 	@Override
@@ -64,5 +61,10 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 		return q.getResultList();
 		
 		
+	}
+	
+	@Override
+	public EntityManager getEntityManager() {
+		return em;
 	}
 }

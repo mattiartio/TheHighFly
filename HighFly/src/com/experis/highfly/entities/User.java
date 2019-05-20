@@ -33,13 +33,13 @@ public class User implements Serializable {
 	private String company;
 	@Column(name = "username", unique = true)
 	private String username;
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	private String password;
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	private String email;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_role")
+	@JoinColumn(name = "user_role", nullable = false)
 	private Role role;
 
 	public String getCompany() {
