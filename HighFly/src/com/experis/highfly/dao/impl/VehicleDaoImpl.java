@@ -1,5 +1,9 @@
 package com.experis.highfly.dao.impl;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +17,15 @@ import com.experis.highfly.entities.Vehicle;
 @Scope(value = "prototype")
 public class VehicleDaoImpl extends GenericDaoImpl<Vehicle> implements VehicleDao{
 
-	@Override
-	public Vehicle findVehicleByType(String type) {
-		return em.find(Vehicle.class, type);
+	
+	public List<Vehicle> listAllByType(String type) {
+		
+		List<Vehicle> retList = null;
+		
+		Query q = em.createQuery("select v.* from vehicle v where vehicle_type=" + type );
+		
+		retList = (List<Vehicle>)q.getResultList();
+		
+		return retList;
 	}
 }
