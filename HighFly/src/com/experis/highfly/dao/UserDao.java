@@ -6,7 +6,7 @@ import com.experis.highfly.entities.User;
 
 public interface UserDao extends GenericDao<User>{
 	
-	public User findByUsernameAndPassword(String username, String password);
+	public List<User> findByUsernameAndPassword(String username, String password);
 	
-	public User findUserByUsername(String username);
+	public List<User> findUserByUsername(String username);
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.experis.highfly.dao.UserDao;
 import com.experis.highfly.entities.User;
 import com.experis.highfly.exception.AuthenticationException;
 

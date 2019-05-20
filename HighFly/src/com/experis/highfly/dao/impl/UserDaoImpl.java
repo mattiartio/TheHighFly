@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.experis.highfly.dao.UserDao;
 import com.experis.highfly.entities.User;
-import com.experis.highfly.utils.JpaUtils;
+
 
 
 
@@ -21,25 +21,25 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 	@Override
 	
 	// TODO Auto-generated method stub
-	public User findByUsernameAndPassword(String username, String password) {
+	public List<User> findByUsernameAndPassword(String username, String password) {
 		// Costruzione dei filtri
 	
-		User user=null;
+		List<User> users =null;
 		Query q = em.createQuery("Select u from User u where username=:user and password =:pass");
 		q.setParameter("user", username);
 		q.setParameter("pass", password);
-		user =(User)q.getSingleResult();
-		return user;
+		users =(List<User>)q.getResultList();
+		return users;
 	}
 	
 
-	public User findUserByUsername(String username) {
+	public List<User> findUserByUsername(String username) {
 		
-		User user=null;
+		List<User> users =null;
 		Query q = em.createQuery("Select u.username from User u where username=:user");
 		q.setParameter("user", username);
-		user =(User)q.getSingleResult();
-		return user;
+		users =(List<User>)q.getSingleResult();
+		return users;
 	}
 	
 }
