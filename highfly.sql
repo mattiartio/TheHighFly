@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 17, 2019 alle 14:41
+-- Creato il: Mag 20, 2019 alle 14:23
 -- Versione del server: 10.1.38-MariaDB
 -- Versione PHP: 7.1.28
 
@@ -76,15 +76,22 @@ CREATE TABLE `transport` (
 --
 
 CREATE TABLE `user` (
+  `user_id` int(10) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
-  `user_role` int(10) NOT NULL,
-  `user_id` int(10) NOT NULL,
   `name` varchar(30) NOT NULL,
   `surname` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `company` varchar(30) DEFAULT NULL
+  `company` varchar(30) DEFAULT NULL,
+  `user_role` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password`, `name`, `surname`, `email`, `company`, `user_role`) VALUES
+(1, 'admin', 'admin', 'admin', 'admin', 'admin.admin@admin.admin', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -173,7 +180,7 @@ ALTER TABLE `transport`
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `vehicle`
