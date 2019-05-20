@@ -28,17 +28,17 @@ public class Transport implements Serializable {
 	@Column(name = "transport_id")
 	private int id;
 
-	@Column(name = "max_seats")
+	@Column(name = "max_seats", nullable = false)
 	private int maxSeats;
 
-	@Column(name = "price")
+	@Column(name = "price", nullable = false)
 	private float price;
 
 	@OneToMany(mappedBy = "transport")
 	private List<Booking> bookings;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "transport_type")
+	@JoinColumn(name = "transport_type", nullable = false)
 	private Vehicle type;
 
 	public int getId() {

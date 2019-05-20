@@ -28,20 +28,20 @@ public class Booking implements Serializable {
 	private int id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
 	private User client;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "transport_id")
+	@JoinColumn(name = "transport_id", nullable = false)
 	private Transport transport;
 
-	@Column(name = "booking_date_from")
+	@Column(name = "booking_date_from", nullable = false)
 	private Date dateFrom;
 
-	@Column(name = "booking_date_to")
+	@Column(name = "booking_date_to", nullable = false)
 	private Date dateTo;
 
-	@Column(name = "booking_price_tot")
+	@Column(name = "booking_price_tot", nullable = false)
 	private float priceTot;
 
 	public int getId() {
