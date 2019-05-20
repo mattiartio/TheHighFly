@@ -74,7 +74,7 @@ public class ConfigurationBean {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		
 		// Specifico qual'è la persistence unit
-		em.setPersistenceUnitName(persistenceUnitName);
+		em.setPersistenceUnitName("highFlyPU");
 	
 		// Setto tutte le info per la connession
 		em.setDataSource(dataSource());
@@ -96,11 +96,16 @@ public class ConfigurationBean {
 	 */
 	@Bean
 	public DataSource dataSource() {
+//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setDriverClassName(databaseDriverClassName);
+//		dataSource.setUrl(databaseUrl);
+//		dataSource.setUsername(databaseUsername);
+//		dataSource.setPassword(databasePassword);
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(databaseDriverClassName);
-		dataSource.setUrl(databaseUrl);
-		dataSource.setUsername(databaseUsername);
-		dataSource.setPassword(databasePassword);
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/highfly");
+		dataSource.setUsername("root");
+		dataSource.setPassword("root");
 		return dataSource;
 	}
 	
@@ -112,8 +117,8 @@ public class ConfigurationBean {
 	private Properties additionalProperties() {
 		
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.dialect", databaseDialect);
-		properties.setProperty("hibernate.show_sql", showSql);
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		properties.setProperty("hibernate.show_sql", "true");
 				return properties;
 	}
 	

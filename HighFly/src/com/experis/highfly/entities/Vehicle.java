@@ -1,6 +1,7 @@
 package com.experis.highfly.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,10 +24,12 @@ public class Vehicle implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "vehicle_id")
 	private int id;
-
+	
 	@Column(name = "vehicle_type", unique = true)
-	@OneToMany(mappedBy = "type")
 	private String type;
+
+	@OneToMany(mappedBy = "type")
+	private List<Vehicle> vehicles;
 
 	public int getId() {
 		return id;
@@ -35,17 +38,26 @@ public class Vehicle implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public List<Vehicle> getVehicles()
+	{
+		return vehicles;
+	}
+
+	public void setVehicles(List<Vehicle> vehicles)
+	{
+		this.vehicles = vehicles;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
+	}
+	
+	
 
 }
