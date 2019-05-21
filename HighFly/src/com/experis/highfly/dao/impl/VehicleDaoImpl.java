@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.experis.highfly.dao.VehicleDao;
 import com.experis.highfly.entities.Vehicle;
 
-//Qua c'è repository perchè è un dao e ha il nome cambiato in "vehicleDao" perchè se no dovremmo usare "vehicleDaoImpl"
-//C'è prototype perchè ogni volta che viene chiamato deve essere costruito un dao, altrimenti due chiamate userebbero
+//Qua c'ï¿½ repository perchï¿½ ï¿½ un dao e ha il nome cambiato in "vehicleDao" perchï¿½ se no dovremmo usare "vehicleDaoImpl"
+//C'ï¿½ prototype perchï¿½ ogni volta che viene chiamato deve essere costruito un dao, altrimenti due chiamate userebbero
 //lo stesso Dao e dopo potrebbero esserci problemi con i dati che immettiamo o eliminiamo dal database
 @Repository("vehicleDao")
 @Scope(value = "prototype")
@@ -22,7 +22,9 @@ public class VehicleDaoImpl extends GenericDaoImpl<Vehicle> implements VehicleDa
 		
 		List<Vehicle> retList = null;
 		
-		Query q = em.createQuery("select v.* from vehicle v where vehicle_type=" + type );
+		Query q = em.createQuery("select v from Vehicle v where v.type=:tipo");
+		
+		q.setParameter("tipo", type);
 		
 		retList = (List<Vehicle>)q.getResultList();
 		
