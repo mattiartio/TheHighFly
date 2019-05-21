@@ -19,10 +19,10 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+/*
 import it.clever.spring.aop.LogServiceAspect;
 import it.clever.spring.config.WSData;
-import it.clever.spring.utils.DatabaseConfigBean;
+import it.clever.spring.utils.DatabaseConfigBean;*/
 
 @Configuration("configBean")
 @EnableTransactionManagement
