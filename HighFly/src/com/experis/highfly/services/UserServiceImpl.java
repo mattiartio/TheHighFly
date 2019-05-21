@@ -30,10 +30,9 @@ public class UserServiceImpl implements UserService
 		 }
 		 throw new AuthenticationException("User not found");
 	}
-
-	@Override
-	public List<User> findAllUsers() throws Exception {
-		return userDao.findAll();
+	
+	public void saveUser(User user) throws Exception {
+		userDao.insert(user);
 	}
 
 	@Override

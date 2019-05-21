@@ -73,7 +73,7 @@ public class ConfigurationBean {
 	
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		
-		// Specifico qual'è la persistence unit
+		// Specifico qual'ï¿½ la persistence unit
 		em.setPersistenceUnitName(persistenceUnitName);
 	
 		// Setto tutte le info per la connession
@@ -117,8 +117,8 @@ public class ConfigurationBean {
 	private Properties additionalProperties() {
 		
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		properties.setProperty("hibernate.show_sql", "true");
+		properties.setProperty("hibernate.dialect", databaseDialect);
+		properties.setProperty("hibernate.show_sql", showSql);
 				return properties;
 	}
 	
