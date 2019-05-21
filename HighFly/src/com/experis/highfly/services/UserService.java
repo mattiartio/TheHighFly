@@ -8,10 +8,10 @@ import com.experis.highfly.exception.AuthenticationException;
 public interface UserService
 {
 
-	List<User> findAllUsers() throws Exception;
-
 	User findByPrimaryKey(Long id) throws Exception;
 
 	User authenticate(String username, String password) throws AuthenticationException;
+	
+	void saveUser(User user) throws Exception;
 
 }
