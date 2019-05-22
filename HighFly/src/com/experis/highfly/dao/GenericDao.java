@@ -9,7 +9,7 @@ public interface GenericDao<T>
 
 	void init();
 
-	T insert(T t);
+T insert(T t);
 
 	void delete(Object id);
 
@@ -18,5 +18,7 @@ public interface GenericDao<T>
 	T update(T t);
 
 	EntityManager getEntityManager();
+
+	List<T> findAll();
 
 }
