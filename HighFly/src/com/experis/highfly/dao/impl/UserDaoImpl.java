@@ -33,8 +33,7 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 	}
 	
 
-	public List<User> findUserByUsername(String username) {
-		
+	public List<User> findUserByUsername(String username){
 		List<User> users =null;
 		Query q = em.createQuery("Select u.username from User u where username=:user");
 		q.setParameter("user", username);
