@@ -27,8 +27,8 @@ public class TransportServiceImpl implements TransportService {
 
 	@Override
 	@Transactional
-	public void deleteTransport(Transport transport) {
-		transportDao.delete(transport);
+	public void deleteTransport(int transportId) {
+		transportDao.delete(transportId);
 	}
 
 	@Override

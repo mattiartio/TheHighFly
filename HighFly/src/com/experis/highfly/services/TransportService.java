@@ -9,7 +9,7 @@ public interface TransportService {
 
 	public void saveTransport(Transport transport);
 
-	public void deleteTransport(Transport transport);
+	public void deleteTransport(int transportId);
 
 	public List<Transport> findByTransportType(int transportType) throws Exception;
 

@@ -32,11 +32,11 @@ public class TransportController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public ResponseEntity<Void> deleteTransport(@RequestBody Transport transport) {
+	@RequestMapping(value = "/delete/", method = RequestMethod.POST)
+	public ResponseEntity<Void> deleteTransport(@RequestBody int transportId) {
 
-		System.out.println("Deleting Transport " + transport.getType().getType());
-		transportService.deleteTransport(transport);
+		System.out.println("Deleting Transport " + transportId);
+		transportService.deleteTransport(transportId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
