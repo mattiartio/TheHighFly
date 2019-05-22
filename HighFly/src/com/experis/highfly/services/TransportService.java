@@ -9,6 +9,8 @@ public interface TransportService {
 
 	public void saveTransport(Transport transport);
 
+	public void deleteTransport(Transport transport);
+
 	public List<Transport> findByTransportType(int transportType) throws Exception;
 
 	public List<Transport> findAvailableTransport(int id, Date dateFrom, Date dateTo) throws Exception;

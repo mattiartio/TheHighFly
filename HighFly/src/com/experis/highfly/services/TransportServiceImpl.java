@@ -26,6 +26,12 @@ public class TransportServiceImpl implements TransportService {
 	}
 
 	@Override
+	@Transactional
+	public void deleteTransport(Transport transport) {
+		transportDao.delete(transport);
+	}
+
+	@Override
 	public List<Transport> findByTransportType(int transportType) throws Exception {
 		return transportDao.findByTransportType(transportType);
 	}

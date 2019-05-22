@@ -3,7 +3,6 @@ package com.experis.highfly.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,14 +24,20 @@ public class TransportController {
 	private TransportService transportService;
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<Void> createTransport(@RequestBody Transport transport, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> createTransport(@RequestBody Transport transport) {
 
 		System.out.println("Creating Transport " + transport.getType().getType());
 		transportService.saveTransport(transport);
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/transport/{id}").buildAndExpand(transport.getId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ResponseEntity<Void> deleteTransport(@RequestBody Transport transport) {
+
+		System.out.println("Deleting Transport " + transport.getType().getType());
+		transportService.deleteTransport(transport);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{type}", method = RequestMethod.GET)
