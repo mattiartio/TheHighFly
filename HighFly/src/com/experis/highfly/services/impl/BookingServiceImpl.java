@@ -105,6 +105,15 @@ public class BookingServiceImpl implements BookingService {
 		return bookingViewBeans;
 	}
 
+	@Override
+	public BookingViewBean findByBookingId(int bookingId) {
+		
+		Booking booking = bookingDao.find(bookingId);
+		BookingViewBean bookingViewBean = fillBookingViewBean(booking);
+		
+		return bookingViewBean;
+	}
+
 	private BookingViewBean fillBookingViewBean(Booking b) {
 
 		BookingViewBean bvb = new BookingViewBean();

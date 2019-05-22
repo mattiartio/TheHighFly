@@ -14,4 +14,6 @@ public interface BookingService {
 	
 	List<BookingViewBean> findAllByUserId(BookingFilter bookingFilter) throws Exception;
 
+	BookingViewBean findByBookingId(int bookingId);
+
 }

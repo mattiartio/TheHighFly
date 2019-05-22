@@ -12,7 +12,9 @@ public enum ResponseStatus
 	
 	LIST_NOT_FOUND(5, "Booking list not found"),
 	
-	DUPLICATE_RECORD(6, "Record already in database");
+	BOOKING_NOT_FOUND(6, "Booking not found"),
+	
+	DUPLICATE_RECORD(7, "Record already in database");
 	
 	
 	
