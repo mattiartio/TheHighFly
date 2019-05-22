@@ -8,9 +8,9 @@ public enum ResponseStatus
 	
 	INTERNAL_SERVER_ERROR(3, "Internal server error"),
 	
-	JSON_ERROR(4, "Json composition error");
+	JSON_ERROR(4, "Json composition error"),
 	
-	
+	LIST_NOT_FOUND(5, "Booking list not found");
 	
 	
 	
