@@ -70,6 +70,14 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 					query += " where b.dateFrom =:datFrom";
 				}
 			}
+			if ((Integer) bookingFilter.getUserId() != null) {
+				if (condition) {
+					query += "and b.userId = :user";
+				} else {
+					condition = true;
+					query += " where b.userId =:user";
+				}
+			}
 
 			Query q = em.createQuery(query);
 
@@ -91,9 +99,14 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 			if (bookingFilter.getDateFrom() != null) {
 				q.setParameter("datFrom", bookingFilter.getDateFrom());
 			}
+			if (bookingFilter.getDateFrom() != null) {
+				q.setParameter("user", bookingFilter.getUserId());
+			}
+
 
 			booking = q.getResultList();
-
+			
+			
 		} finally {
 			em.close();
 		}

@@ -2,6 +2,7 @@ package com.experis.highfly.utils;
 
 import java.sql.Date;
 
+
 public class BookingFilter {
 	private String name;
 	private String surname;
@@ -9,6 +10,7 @@ public class BookingFilter {
 	private String company;
 	private Date dateFrom;
 	private Date dateTo;
+	private int userId;
 
 	public String getName() {
 		return name;
@@ -56,6 +58,14 @@ public class BookingFilter {
 
 	public void setDateTo(Date dateTo) {
 		this.dateTo = dateTo;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }
