@@ -1,9 +1,6 @@
 package com.experis.highfly.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.experis.highfly.entities.User;
 import com.experis.highfly.exception.AuthenticationException;
+import com.experis.highfly.messages.ResponseMessage;
+import com.experis.highfly.messages.ResponseStatus;
 import com.experis.highfly.services.UserService;
 import com.experis.highfly.viewbeans.UserViewBean;
 
@@ -48,23 +46,26 @@ public class UserController {
     //------------------Login-------------------------------------------------------------------
     
     @RequestMapping(value = "/login/", method = RequestMethod.POST, consumes="application/json")
-    public ResponseEntity<UserViewBean> login(@RequestBody UserViewBean user) {
+    public ResponseEntity<ResponseMessage> login(@RequestBody UserViewBean user) {
         System.out.println("Login user " + user.getUsername());
         UserViewBean userLocal;
+        ResponseMessage message = new ResponseMessage();
         try
 		{
 			userLocal = userService.authenticate(user.getUsername(), user.getPassword());
+			message.setData(userLocal);
 			if (userLocal == null) {
 				System.out.println("User with username " + user.getUsername() + " not found");
-				return new ResponseEntity<UserViewBean>(HttpStatus.NOT_FOUND);
+				message.setResponseStatus(ResponseStatus.USER_NOT_FOUND);
+				return new ResponseEntity<ResponseMessage>(message, HttpStatus.NOT_FOUND);
 			}
-			
-			return new ResponseEntity<UserViewBean>(userLocal, HttpStatus.OK);
+			message.setResponseStatus(ResponseStatus.OK);
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
 		} catch (AuthenticationException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ResponseEntity<UserViewBean>(HttpStatus.INTERNAL_SERVER_ERROR);
+			message.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
         
         
