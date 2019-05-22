@@ -4,12 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-public interface GenericDao<T>
-{
+public interface GenericDao<T> {
 
 	void init();
 
-T insert(T t);
+	T insert(T t);
 
 	void delete(Object id);
 
