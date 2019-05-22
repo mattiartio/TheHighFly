@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.experis.highfly.entities.Transport;
 import com.experis.highfly.services.TransportService;
+import com.experis.highfly.viewbeans.TransportViewBean;
 
 @RestController
 @RequestMapping("/transport")
@@ -25,8 +26,9 @@ public class TransportController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<Void> createTransport(@RequestBody TransportViewBean transportVB) {
 
-		System.out.println("Creating Transport " + transport.getType().getType());
-		transportService.saveTransport(transport);
+		System.out.println("Creating Transport " + transportVB.getVehicle());
+
+		transportService.saveTransport(transportVB);
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
@@ -41,7 +43,7 @@ public class TransportController {
 
 	// --------------------------------- List by Type
 	@RequestMapping(value = "/listAll/{type}/", method = RequestMethod.GET)
-	public ResponseEntity<List<Transport>> listByTransportType(@PathVariable("type") int type) {
+	public ResponseEntity<List<Transport>> listByTransportType(@PathVariable("type") String type) {
 		List<Transport> transports;
 
 		System.out.println("List of all \"" + type + "\" transports");

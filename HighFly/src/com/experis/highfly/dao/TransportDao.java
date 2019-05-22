@@ -7,7 +7,7 @@ import com.experis.highfly.entities.Transport;
 
 public interface TransportDao extends GenericDao<Transport> {
 
-	public List<Transport> findByTransportType(int transportType);
+	public List<Transport> findByTransportType(String transportType);
 
 	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo);
 

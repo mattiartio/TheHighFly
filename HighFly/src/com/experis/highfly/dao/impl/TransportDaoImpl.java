@@ -14,11 +14,11 @@ import com.experis.highfly.entities.Transport;
 public class TransportDaoImpl extends GenericDaoImpl<Transport> implements TransportDao {
 
 	@Override
-	public List<Transport> findByTransportType(int transportType) {
+	public List<Transport> findByTransportType(String transportType) {
 
 		List<Transport> retList = null;
 
-		Query q = em.createQuery("select t from Transport t where t.transportType = :transportType");
+		Query q = em.createQuery("select t from Transport t where t.type.type = :transportType");
 		q.setParameter("transportType", transportType);
 		retList = q.getResultList();
 
