@@ -10,7 +10,9 @@ public enum ResponseStatus
 	
 	JSON_ERROR(4, "Json composition error"),
 	
-	LIST_NOT_FOUND(5, "Booking list not found");
+	LIST_NOT_FOUND(5, "Booking list not found"), 
+	
+	BOOKING_NOT_FOUND(6, "Booking not found");
 	
 	
 	

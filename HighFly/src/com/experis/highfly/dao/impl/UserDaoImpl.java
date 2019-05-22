@@ -2,7 +2,6 @@ package com.experis.highfly.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
