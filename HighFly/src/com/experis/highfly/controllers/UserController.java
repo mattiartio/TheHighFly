@@ -47,29 +47,24 @@ public class UserController {
     
     //------------------Login-------------------------------------------------------------------
     
-    @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public ResponseEntity<User> login(@RequestBody UserViewBean user) {
+    @RequestMapping(value = "/login/", method = RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<UserViewBean> login(@RequestBody UserViewBean user) {
         System.out.println("Login user " + user.getUsername());
-  /*
-        if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getName() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-  */
-        User userLocal;
+        UserViewBean userLocal;
         try
 		{
 			userLocal = userService.authenticate(user.getUsername(), user.getPassword());
 			if (userLocal == null) {
 				System.out.println("User with username " + user.getUsername() + " not found");
-				return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<UserViewBean>(HttpStatus.NOT_FOUND);
 			}
-			return new ResponseEntity<User>(userLocal, HttpStatus.OK);
+			
+			return new ResponseEntity<UserViewBean>(userLocal, HttpStatus.OK);
 		} catch (AuthenticationException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<UserViewBean>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
         
         

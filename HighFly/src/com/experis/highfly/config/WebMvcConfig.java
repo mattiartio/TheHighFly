@@ -11,5 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = { "com.experis.highfly.*" })
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-	
+	@Bean
+	public WSData wsData() {
+		return new WSData();  
+	}
 }
