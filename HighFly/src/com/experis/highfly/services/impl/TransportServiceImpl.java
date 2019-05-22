@@ -1,4 +1,4 @@
-package com.experis.highfly.services;
+package com.experis.highfly.services.impl;
 
 import java.sql.Date;
 import java.util.List;
@@ -13,6 +13,7 @@ import com.experis.highfly.dao.TransportDao;
 import com.experis.highfly.dao.VehicleDao;
 import com.experis.highfly.entities.Transport;
 import com.experis.highfly.entities.Vehicle;
+import com.experis.highfly.services.TransportService;
 import com.experis.highfly.viewbeans.TransportViewBean;
 
 @Service(value = "transportService")

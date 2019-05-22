@@ -1,4 +1,4 @@
-package com.experis.highfly.services;
+package com.experis.highfly.services.impl;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.experis.highfly.dao.UserDao;
 import com.experis.highfly.entities.User;
 import com.experis.highfly.exception.AuthenticationException;
+import com.experis.highfly.services.UserService;
 import com.experis.highfly.viewbeans.UserViewBean;
 
 @Service(value="userService")
