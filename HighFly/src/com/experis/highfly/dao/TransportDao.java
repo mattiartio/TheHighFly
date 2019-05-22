@@ -9,6 +9,6 @@ public interface TransportDao extends GenericDao<Transport> {
 
 	public List<Transport> findByTransportType(int transportType);
 
-	public List<Transport> findAvailableTransport(int id, Date dateFrom, Date dateTo);
+	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo);
 
 }

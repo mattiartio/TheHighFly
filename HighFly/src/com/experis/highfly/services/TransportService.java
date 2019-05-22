@@ -13,6 +13,6 @@ public interface TransportService {
 
 	public List<Transport> findByTransportType(int transportType) throws Exception;
 
-	public List<Transport> findAvailableTransport(int id, Date dateFrom, Date dateTo) throws Exception;
+	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo) throws Exception;
 
 }

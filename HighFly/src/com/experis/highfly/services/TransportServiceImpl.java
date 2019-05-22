@@ -37,8 +37,8 @@ public class TransportServiceImpl implements TransportService {
 	}
 
 	@Override
-	public List<Transport> findAvailableTransport(int id, Date dateFrom, Date dateTo) throws Exception {
-		return transportDao.findAvailableTransport(id, dateFrom, dateTo);
+	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo) throws Exception {
+		return transportDao.findAvailableTransport(dateFrom, dateTo);
 	}
 
 }

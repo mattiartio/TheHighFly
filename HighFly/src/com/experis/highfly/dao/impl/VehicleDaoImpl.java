@@ -15,19 +15,19 @@ import com.experis.highfly.entities.Vehicle;
 //lo stesso Dao e dopo potrebbero esserci problemi con i dati che immettiamo o eliminiamo dal database
 @Repository("vehicleDao")
 @Scope(value = "prototype")
-public class VehicleDaoImpl extends GenericDaoImpl<Vehicle> implements VehicleDao{
+public class VehicleDaoImpl extends GenericDaoImpl<Vehicle> implements VehicleDao {
 
-	
 	public List<Vehicle> listAllByType(String type) {
-		
+
 		List<Vehicle> retList = null;
-		
+
 		Query q = em.createQuery("select v from Vehicle v where v.type=:tipo");
-		
+
 		q.setParameter("tipo", type);
-		
-		retList = (List<Vehicle>)q.getResultList();
-		
+
+		retList = (List<Vehicle>) q.getResultList();
+
 		return retList;
 	}
+
 }
