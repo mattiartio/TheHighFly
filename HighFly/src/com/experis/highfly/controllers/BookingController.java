@@ -22,7 +22,7 @@ public class BookingController {
 
 	@Autowired
 	private BookingService bookingService;
-
+/*
 	// -------------------Retrieve All
 	// bookings--------------------------------------------------------
 	@RequestMapping(value = "/listall", method = RequestMethod.GET)
@@ -182,5 +182,5 @@ public class BookingController {
 		}
 
 	}
-
+*/
 }

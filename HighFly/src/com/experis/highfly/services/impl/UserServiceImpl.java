@@ -2,16 +2,17 @@ package com.experis.highfly.services.impl;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.experis.highfly.dao.RoleDao;
 import com.experis.highfly.dao.UserDao;
 import com.experis.highfly.entities.User;
 import com.experis.highfly.exception.AuthenticationException;
+import com.experis.highfly.exception.SaveException;
 import com.experis.highfly.services.UserService;
 import com.experis.highfly.viewbeans.UserViewBean;
 
@@ -22,6 +23,10 @@ public class UserServiceImpl implements UserService
 	@Autowired
 	@Qualifier("userDao")
 	UserDao userDao;
+	
+	@Autowired
+	@Qualifier("roleDao")
+	RoleDao roleDao;
 	
 	@Override
 	@Transactional(propagation = Propagation.NEVER)
@@ -45,9 +50,34 @@ public class UserServiceImpl implements UserService
 		 throw new AuthenticationException("User not found");
 	
 	}
+	@Override
+	public void saveUser(UserViewBean user) throws Exception {
+		
+		try {
+			if (userDao.findUserByUsername(user.getUsername()) == null)
+				throw new SaveException("Username already existing");
+			User utente = fillUser(user);
+		
+			userDao.insert(utente);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+	}
 	
-	public void saveUser(User user) throws Exception {
-		userDao.insert(user);
+	private User fillUser(UserViewBean user) throws Exception
+	{
+		User u = new User();
+		
+		u.setUsername(user.getUsername());
+		u.setPassword(user.getPassword());
+		u.setName(user.getNome());
+		u.setSurname(user.getCognome());
+		u.setEmail(user.getEmail());
+		u.setCompany(user.getCompany());
+		u.setRole(roleDao.findByType(user.getRole()));
+		
+		return u;
+		
 	}
 
 	@Override
