@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService
 	
 	@Override
 	@Transactional(propagation = Propagation.NEVER)
-	public UserViewBean authenticate(String username, String password) throws AuthenticationException {
+	public UserViewBean authenticate(String username, String password) throws AuthenticationException{
 		
 		 UserViewBean userViewBean = new UserViewBean();
 		 List<User> users = userDao.findByUsernameAndPassword(username, password);
@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService
 			 return userViewBean;
 		 }
 		 throw new AuthenticationException("User not found");
+	
 	}
 	
 	public void saveUser(User user) throws Exception {

@@ -4,6 +4,8 @@ public class ResponseMessage
 {
 	private ResponseStatus responseStatus;
 	
+	private String message;
+
 	private Object data;
 
 	public ResponseStatus getResponseStatus()
@@ -26,6 +28,15 @@ public class ResponseMessage
 		this.data = data;
 	}
 	
+	public String getMessage()
+	{
+		return message;
+	}
+
+	public void setMessage(String message)
+	{
+		this.message = message;
+	}
 	
 	
 }

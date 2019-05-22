@@ -52,21 +52,32 @@ public class UserController {
         ResponseMessage message = new ResponseMessage();
         try
 		{
+        	if (user.getUsername() == null || user.getPassword() == null) {
+        		message.setResponseStatus(ResponseStatus.JSON_ERROR);
+    			message.setMessage(ResponseStatus.JSON_ERROR.getDescription());
+    			return new ResponseEntity<ResponseMessage>(message, HttpStatus.UNPROCESSABLE_ENTITY);
+        	}
+        	
 			userLocal = userService.authenticate(user.getUsername(), user.getPassword());
 			message.setData(userLocal);
-			if (userLocal == null) {
-				System.out.println("User with username " + user.getUsername() + " not found");
-				message.setResponseStatus(ResponseStatus.USER_NOT_FOUND);
-				return new ResponseEntity<ResponseMessage>(message, HttpStatus.NOT_FOUND);
-			}
+			
 			message.setResponseStatus(ResponseStatus.OK);
+			message.setMessage(ResponseStatus.OK.getDescription());
 			return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
 		} catch (AuthenticationException e)
 		{
-			e.printStackTrace();
-			message.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
-			return new ResponseEntity<ResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+			System.out.println("User with username " + user.getUsername() + " not found");
+			message.setResponseStatus(ResponseStatus.USER_NOT_FOUND);
+			message.setMessage(ResponseStatus.USER_NOT_FOUND.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.NOT_FOUND);
 		}
+        catch (Exception e)
+        {
+        	e.printStackTrace();
+			message.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
+			message.setMessage(ResponseStatus.INTERNAL_SERVER_ERROR.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         
         
     }

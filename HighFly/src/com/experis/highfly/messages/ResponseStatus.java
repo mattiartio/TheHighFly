@@ -6,7 +6,9 @@ public enum ResponseStatus
 	
 	USER_NOT_FOUND(2,"User not found"),
 	
-	INTERNAL_SERVER_ERROR(3, "Internal server error");
+	INTERNAL_SERVER_ERROR(3, "Internal server error"),
+	
+	JSON_ERROR(4, "Json composition error");
 	
 	
 	
