@@ -15,16 +15,13 @@ import javax.persistence.Table;
 @Table(name = "vehicle")
 public class Vehicle implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7933632186287415462L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "vehicle_id")
 	private int id;
-	
+
 	@Column(name = "vehicle_type", unique = true)
 	private String type;
 
@@ -38,26 +35,25 @@ public class Vehicle implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public List<Vehicle> getVehicles()
-	{
+	public List<Vehicle> getVehicles() {
 		return vehicles;
 	}
 
-	public void setVehicles(List<Vehicle> vehicles)
-	{
+	public String getType() {
+		return type;
+	}
+
+	public void setVehicles(List<Vehicle> vehicles) {
 		this.vehicles = vehicles;
 	}
 
-	public void setType(String type)
-	{
+	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
 
 }
