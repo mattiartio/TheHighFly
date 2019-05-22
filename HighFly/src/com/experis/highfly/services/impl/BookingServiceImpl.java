@@ -24,6 +24,7 @@ import com.experis.highfly.dao.UserDao;
 import com.experis.highfly.entities.Booking;
 import com.experis.highfly.entities.Transport;
 import com.experis.highfly.entities.User;
+import com.experis.highfly.exception.BookingException;
 import com.experis.highfly.services.BookingService;
 import com.experis.highfly.utils.BookingFilter;
 import com.experis.highfly.viewbeans.BookingViewBean;
@@ -53,7 +54,7 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	// @RequiredTx
 
-	public BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception {
+	public BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception, BookingException {
 
 		Booking booking = new Booking();
 
@@ -98,6 +99,7 @@ public class BookingServiceImpl implements BookingService {
 		List<Booking> bookings = bookingDao.findBookingByFilters(bookingFilter);
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
 
+		
 		for (Booking b : bookings) {
 			bookingViewBeans.add(fillBookingViewBean(b));
 		}
@@ -106,9 +108,12 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public BookingViewBean findByBookingId(int bookingId) {
+	public BookingViewBean findByBookingId(int bookingId) throws BookingException{
 		
 		Booking booking = bookingDao.find(bookingId);
+		if (booking == null)
+			throw new BookingException();
+		
 		BookingViewBean bookingViewBean = fillBookingViewBean(booking);
 		
 		return bookingViewBean;
