@@ -8,9 +8,9 @@ import com.experis.highfly.viewbeans.TransportViewBean;
 
 public interface TransportService {
 
-	public void saveTransport(TransportViewBean transportVB);
+	public Transport saveTransport(TransportViewBean transportVB);
 
-	public void deleteTransport(int transportId);
+	public Transport deleteTransport(int transportId);
 
 	public List<Transport> findByTransportType(String transportType) throws Exception;
 

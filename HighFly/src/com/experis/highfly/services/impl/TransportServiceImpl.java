@@ -29,7 +29,7 @@ public class TransportServiceImpl implements TransportService {
 
 	@Override
 	@Transactional
-	public void saveTransport(TransportViewBean transportVB) {
+	public Transport saveTransport(TransportViewBean transportVB) {
 
 		Transport t = new Transport();
 
@@ -43,12 +43,18 @@ public class TransportServiceImpl implements TransportService {
 		t.setType(v);
 
 		transportDao.insert(t);
+		return t;
 	}
 
 	@Override
 	@Transactional
-	public void deleteTransport(int transportId) {
+	public Transport deleteTransport(int transportId) {
+		Transport t = new Transport();
+		t = transportDao.find(transportId);
+
 		transportDao.delete(transportId);
+
+		return t;
 	}
 
 	@Override

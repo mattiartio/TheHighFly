@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.experis.highfly.entities.Transport;
+import com.experis.highfly.messages.ResponseMessage;
+import com.experis.highfly.messages.ResponseStatus;
 import com.experis.highfly.services.TransportService;
 import com.experis.highfly.viewbeans.TransportViewBean;
 
@@ -23,25 +25,67 @@ public class TransportController {
 	@Autowired
 	private TransportService transportService;
 
+	// --------------------- Create transport ------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<Void> createTransport(@RequestBody TransportViewBean transportVB) {
+	public ResponseEntity<ResponseMessage> createTransport(@RequestBody TransportViewBean transportVB) {
 
 		System.out.println("Creating Transport " + transportVB.getVehicle());
 
-		transportService.saveTransport(transportVB);
+		Transport currentTransport = null;
 
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		try {
+			ResponseMessage rm = new ResponseMessage();
+
+			currentTransport = transportService.saveTransport(transportVB);
+
+			if (currentTransport == null) {
+				rm.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
+			}
+
+			rm.setResponseStatus(ResponseStatus.OK);
+			rm.setData(currentTransport);
+			rm.setMessage("Transport successfully created.");
+			return new ResponseEntity<ResponseMessage>(HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
+	// ---------------------------Delete transport-------------------------
 	@RequestMapping(value = "/delete/", method = RequestMethod.POST)
-	public ResponseEntity<Void> deleteTransport(@RequestBody int transportId) {
+	public ResponseEntity<ResponseMessage> deleteTransport(@RequestBody int transportId) {
 
 		System.out.println("Deleting Transport " + transportId);
-		transportService.deleteTransport(transportId);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+
+		Transport currentTransport = null;
+
+		try {
+			ResponseMessage rm = new ResponseMessage();
+
+			currentTransport = transportService.deleteTransport(transportId);
+
+			if (currentTransport == null) {
+				rm.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
+			}
+
+			rm.setResponseStatus(ResponseStatus.OK);
+			rm.setData(currentTransport);
+			rm.setMessage("Transport successfully deleted.");
+			return new ResponseEntity<ResponseMessage>(HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
-	// --------------------------------- List by Type
+	// --------------------------------- List by Type-----------------------
 	@RequestMapping(value = "/listAll/{type}/", method = RequestMethod.GET)
 	public ResponseEntity<List<Transport>> listByTransportType(@PathVariable("type") String type) {
 		List<Transport> transports;
@@ -60,6 +104,7 @@ public class TransportController {
 		}
 	}
 
+	// -----------------------List of available transport-------------------
 	@RequestMapping(value = "/findAvailableTransport/{date-from}/{date-to}", method = RequestMethod.GET)
 	public ResponseEntity<List<Transport>> listAvailableTransport(@PathVariable("date-from") Date dateFrom,
 			@PathVariable("date-to") Date dateTo) {
