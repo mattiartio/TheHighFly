@@ -3,6 +3,8 @@ package com.experis.highfly.services;
 import java.sql.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,12 @@ public class TransportServiceImpl implements TransportService {
 	@Autowired
 	@Qualifier("transportDao")
 	TransportDao transportDao;
+
+	@Override
+	@Transactional
+	public void saveTransport(Transport transport) {
+		transportDao.insert(transport);
+	}
 
 	@Override
 	public List<Transport> findByTransportType(int transportType) throws Exception {
