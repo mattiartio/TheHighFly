@@ -78,34 +78,6 @@ public class BookingServiceImpl implements BookingService {
 
 		return bookingViewBean;
 	}
-	
-	
-	@Override
-	public BookingViewBean updateBooking(BookingViewBean bookingViewBean) throws Exception {
-
-		Booking booking = new Booking();
-
-		// Recupero dell'user
-
-		User user = (User) userDao.findUserByUsername(bookingViewBean.getUsername());
-		booking.setClient(user);
-
-		// Recupero del trasporto
-		Transport transport = transportDao.find(bookingViewBean.getTransportViewBean().getIdTransport());
-		booking.setTransport(transport);
-
-		booking.setDateFrom(bookingViewBean.getDataFrom());
-		booking.setDateTo(bookingViewBean.getDataTo());
-		booking.setPriceTot(transport.getPrice());
-
-		bookingDao.insert(booking);
-
-		transport.setMaxSeats(transport.getMaxSeats() - 1);
-
-		transportDao.update(transport);
-
-		return bookingViewBean;
-	}
 
 	@Override
 	public List<BookingViewBean> findAll() throws Exception {
