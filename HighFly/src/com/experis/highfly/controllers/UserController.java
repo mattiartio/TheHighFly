@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.experis.highfly.entities.User;
 import com.experis.highfly.exception.AuthenticationException;
+import com.experis.highfly.exception.SaveException;
 import com.experis.highfly.messages.ResponseMessage;
 import com.experis.highfly.messages.ResponseStatus;
 import com.experis.highfly.services.UserService;
@@ -58,6 +59,7 @@ public class UserController {
     			return new ResponseEntity<ResponseMessage>(message, HttpStatus.UNPROCESSABLE_ENTITY);
         	}
         	
+        	
 			userLocal = userService.authenticate(user.getUsername(), user.getPassword());
 			message.setData(userLocal);
 			
@@ -71,6 +73,46 @@ public class UserController {
 			message.setMessage(ResponseStatus.USER_NOT_FOUND.getDescription());
 			return new ResponseEntity<ResponseMessage>(message, HttpStatus.NOT_FOUND);
 		}
+        catch (Exception e)
+        {
+        	e.printStackTrace();
+			message.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
+			message.setMessage(ResponseStatus.INTERNAL_SERVER_ERROR.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+        
+    }
+    
+//------------------Registrazione-------------------------------------------------------------------
+    
+    @RequestMapping(value = "/signin/", method = RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<ResponseMessage> signIn(@RequestBody UserViewBean user) {
+        System.out.println("SignIn user " + user.getUsername());
+        UserViewBean userLocal;
+        ResponseMessage message = new ResponseMessage();
+        try
+		{
+        	if (user.getUsername() == null || user.getPassword() == null || user.getNome() == null || user.getCognome() == null || user.getEmail() == null || user.getRole() == null) {
+        		message.setResponseStatus(ResponseStatus.JSON_ERROR);
+    			message.setMessage(ResponseStatus.JSON_ERROR.getDescription());
+    			return new ResponseEntity<ResponseMessage>(message, HttpStatus.UNPROCESSABLE_ENTITY);
+        	}
+        	
+        	
+			userService.saveUser(user);
+			
+			message.setResponseStatus(ResponseStatus.OK);
+			message.setMessage(ResponseStatus.OK.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
+		}
+        catch (SaveException e)
+        {
+        	e.printStackTrace();
+			message.setResponseStatus(ResponseStatus.DUPLICATE_RECORD);
+			message.setMessage(ResponseStatus.DUPLICATE_RECORD.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
         catch (Exception e)
         {
         	e.printStackTrace();

@@ -8,5 +8,5 @@ public interface UserDao extends GenericDao<User>{
 	
 	public List<User> findByUsernameAndPassword(String username, String password);
 	
-	public List<User> findUserByUsername(String username);
+	public List<User> findUserByUsername(String username) throws Exception;
 }

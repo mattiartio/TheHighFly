@@ -61,7 +61,7 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 	
 	@Override 
 	public List<T> findAll() {
-		Query q = em.createQuery("select b from " + type + " b");
+		Query q = em.createQuery("select b from " + type.getSimpleName() + " b");
 		return q.getResultList();
 	}
 }

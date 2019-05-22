@@ -24,6 +24,7 @@ import com.experis.highfly.dao.UserDao;
 import com.experis.highfly.entities.Booking;
 import com.experis.highfly.entities.Transport;
 import com.experis.highfly.entities.User;
+import com.experis.highfly.exception.BookingException;
 import com.experis.highfly.services.BookingService;
 import com.experis.highfly.utils.BookingFilter;
 import com.experis.highfly.viewbeans.BookingViewBean;
@@ -52,9 +53,8 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	// @RequiredTx
-	@Transactional(propagation = Propagation.REQUIRED)
 
-	public BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception {
+	public BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception, BookingException {
 
 		Booking booking = new Booking();
 
@@ -86,8 +86,7 @@ public class BookingServiceImpl implements BookingService {
 
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
 
-		
-		for (Booking b : bookings) { 
+		for (Booking b : bookings) {
 			bookingViewBeans.add(fillBookingViewBean(b));
 		}
 
@@ -96,10 +95,11 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<BookingViewBean> findAllByUserId(BookingFilter bookingFilter) throws Exception {
-		
+
 		List<Booking> bookings = bookingDao.findBookingByFilters(bookingFilter);
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
 
+		
 		for (Booking b : bookings) {
 			bookingViewBeans.add(fillBookingViewBean(b));
 		}
@@ -107,23 +107,35 @@ public class BookingServiceImpl implements BookingService {
 		return bookingViewBeans;
 	}
 
-	private BookingViewBean fillBookingViewBean(Booking b) {
+	@Override
+	public BookingViewBean findByBookingId(int bookingId) throws BookingException{
 		
+		Booking booking = bookingDao.find(bookingId);
+		if (booking == null)
+			throw new BookingException();
+		
+		BookingViewBean bookingViewBean = fillBookingViewBean(booking);
+		
+		return bookingViewBean;
+	}
+
+	private BookingViewBean fillBookingViewBean(Booking b) {
+
 		BookingViewBean bvb = new BookingViewBean();
 		TransportViewBean tvb = new TransportViewBean();
-		
+
 		tvb.setIdTransport(b.getTransport().getId());
 		tvb.setMaxSeats(b.getTransport().getMaxSeats());
 		tvb.setPrice(b.getTransport().getPrice());
 		tvb.setVehicle(b.getTransport().getType().getType());
-		
+
 		bvb.setName(b.getClient().getName());
 		bvb.setSurname(b.getClient().getSurname());
 		bvb.setPrice(b.getTransport().getPrice());
 		bvb.setDataFrom(b.getDateFrom());
 		bvb.setDataTo(b.getDateTo());
 		bvb.setTransportViewBean(tvb);
-		
+
 		return bvb;
 	}
 

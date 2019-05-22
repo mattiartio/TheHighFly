@@ -2,7 +2,6 @@ package com.experis.highfly.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
@@ -33,12 +32,11 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 	}
 	
 
-	public List<User> findUserByUsername(String username) {
-		
+	public List<User> findUserByUsername(String username){
 		List<User> users =null;
 		Query q = em.createQuery("Select u.username from User u where username=:user");
 		q.setParameter("user", username);
-		users =(List<User>)q.getSingleResult();
+		users = (List<User>)q.getResultList();
 		return users;
 	}
 	
