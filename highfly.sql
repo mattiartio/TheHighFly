@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 20, 2019 alle 14:23
+-- Creato il: Mag 22, 2019 alle 17:23
 -- Versione del server: 10.1.38-MariaDB
 -- Versione PHP: 7.1.28
 
@@ -37,6 +37,13 @@ CREATE TABLE `booking` (
   `booking_price_tot` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dump dei dati per la tabella `booking`
+--
+
+INSERT INTO `booking` (`booking_id`, `user_id`, `transport_id`, `booking_date_from`, `booking_date_to`, `booking_price_tot`) VALUES
+(1, 1, 1, '2019-05-23', '2019-05-24', 250);
+
 -- --------------------------------------------------------
 
 --
@@ -69,6 +76,13 @@ CREATE TABLE `transport` (
   `price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dump dei dati per la tabella `transport`
+--
+
+INSERT INTO `transport` (`transport_id`, `transport_type`, `max_seats`, `price`) VALUES
+(1, 1, 250, 250);
+
 -- --------------------------------------------------------
 
 --
@@ -91,7 +105,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `name`, `surname`, `email`, `company`, `user_role`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin', 'admin.admin@admin.admin', 'admin', 1);
+(1, 'admin', 'admin', 'admin', 'admin', 'admin.admin@admin.admin', 'admin', 1),
+(2, 'pippo', 'pippo', 'pippo', 'pippo', 'pippo@pippo.pippo', NULL, 2),
+(8, 'poppi', 'pippo', 'pippo', 'pippo', 'pippo@pippo.pippo', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -162,7 +178,7 @@ ALTER TABLE `vehicle`
 -- AUTO_INCREMENT per la tabella `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `role`
@@ -174,13 +190,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT per la tabella `transport`
 --
 ALTER TABLE `transport`
-  MODIFY `transport_id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `transport_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT per la tabella `vehicle`
