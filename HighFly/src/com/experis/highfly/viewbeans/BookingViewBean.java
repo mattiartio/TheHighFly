@@ -3,6 +3,7 @@ package com.experis.highfly.viewbeans;
 import java.sql.Date;
 
 public class BookingViewBean {
+	
 	private String username;
 	private String name;
 	private String surname;

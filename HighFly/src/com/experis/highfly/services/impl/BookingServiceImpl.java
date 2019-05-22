@@ -86,7 +86,8 @@ public class BookingServiceImpl implements BookingService {
 
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
 
-		for (Booking b : bookings) {
+		
+		for (Booking b : bookings) { 
 			bookingViewBeans.add(fillBookingViewBean(b));
 		}
 
