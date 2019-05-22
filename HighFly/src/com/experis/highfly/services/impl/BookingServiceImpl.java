@@ -52,9 +52,36 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	// @RequiredTx
-	@Transactional(propagation = Propagation.REQUIRED)
 
 	public BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception {
+
+		Booking booking = new Booking();
+
+		// Recupero dell'user
+
+		User user = (User) userDao.findUserByUsername(bookingViewBean.getUsername());
+		booking.setClient(user);
+
+		// Recupero del trasporto
+		Transport transport = transportDao.find(bookingViewBean.getTransportViewBean().getIdTransport());
+		booking.setTransport(transport);
+
+		booking.setDateFrom(bookingViewBean.getDataFrom());
+		booking.setDateTo(bookingViewBean.getDataTo());
+		booking.setPriceTot(transport.getPrice());
+
+		bookingDao.insert(booking);
+
+		transport.setMaxSeats(transport.getMaxSeats() - 1);
+
+		transportDao.update(transport);
+
+		return bookingViewBean;
+	}
+	
+	
+	@Override
+	public BookingViewBean updateBooking(BookingViewBean bookingViewBean) throws Exception {
 
 		Booking booking = new Booking();
 
@@ -86,8 +113,7 @@ public class BookingServiceImpl implements BookingService {
 
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
 
-		
-		for (Booking b : bookings) { 
+		for (Booking b : bookings) {
 			bookingViewBeans.add(fillBookingViewBean(b));
 		}
 
@@ -96,7 +122,7 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<BookingViewBean> findAllByUserId(BookingFilter bookingFilter) throws Exception {
-		
+
 		List<Booking> bookings = bookingDao.findBookingByFilters(bookingFilter);
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
 
@@ -108,22 +134,22 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	private BookingViewBean fillBookingViewBean(Booking b) {
-		
+
 		BookingViewBean bvb = new BookingViewBean();
 		TransportViewBean tvb = new TransportViewBean();
-		
+
 		tvb.setIdTransport(b.getTransport().getId());
 		tvb.setMaxSeats(b.getTransport().getMaxSeats());
 		tvb.setPrice(b.getTransport().getPrice());
 		tvb.setVehicle(b.getTransport().getType().getType());
-		
+
 		bvb.setName(b.getClient().getName());
 		bvb.setSurname(b.getClient().getSurname());
 		bvb.setPrice(b.getTransport().getPrice());
 		bvb.setDataFrom(b.getDateFrom());
 		bvb.setDataTo(b.getDateTo());
 		bvb.setTransportViewBean(tvb);
-		
+
 		return bvb;
 	}
 
