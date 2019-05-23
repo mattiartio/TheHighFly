@@ -119,11 +119,6 @@ public class BookingController {
 			UriComponentsBuilder ucBuilder) {
 		System.out.println("Creating new booking ");
 
-		// if (bookingService.isbookingExist(bookingServiceDto.equals())) {
-		// System.out.println("A booking with name " + booking.getName() + " already
-		// exist");
-		// return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-		// }
 		BookingViewBean confirmedBookingViewBean = null;
 		ResponseMessage rm = new ResponseMessage();
 
@@ -145,50 +140,72 @@ public class BookingController {
 			return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		// HttpHeaders headers = new HttpHeaders();
-		// headers.setLocation(ucBuilder.path("/booking/{id}").buildAndExpand(bookingServiceDto.getUser().getId()).toUri());
-		// ResponseMessage rm=new ResponseMessage();
-		// rm.setData(headers);
+
 
 	}
 
 	// ------------------- Update a booking
 	// --------------------------------------------------------
 
-	// @RequestMapping(value = "/update/{id_booking}", method = RequestMethod.PUT)
-	// public ResponseEntity<ResponseMessage>
-	// updateBooking(@PathVariable("id_booking") int id_booking , BookingServiceDto
-	// bookingDto ) {
-	// System.out.println("Updating booking " + id_booking );
-	//
-	// Booking currentBooking;
-	// ResponseMessage rm = new ResponseMessage();
-	// BookingViewBean confirmedBookingViewBean=null;
-	//
-	// currentBooking = bookingService.find(id_booking);
-	//
-	// try {
-	//
-	// if (currentBooking==null) {
-	// System.out.println("booking with id " + id_booking + " not found");
-	//
-	// rm.setCode("KO");
-	// rm.setMessage("booking with id " + id_booking + " not found");
-	// return new ResponseEntity<ResponseMessage>(rm,HttpStatus.NOT_FOUND);
-	// }
-	//
-	// bookingService.updateBooking(bookingViewBean);
-	//
-	// rm.setCode("OK");
-	// rm.setMessage("booking with id " + id_booking + " updated");
-	// rm.setData(currentBooking);
-	//
-	// return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// }
-	//
-	// }
+	 @RequestMapping(value = "/update/{bookingID}", method = RequestMethod.PUT)
+	 public ResponseEntity<ResponseMessage>
+	 updateBooking(@PathVariable("id_booking") int bookingID ,@RequestBody BookingViewBean bookingViewBean ) {
+	 System.out.println("Updating booking " + bookingID );
+	
+		ResponseMessage rm = new ResponseMessage();
+		BookingViewBean updatedBookingViewBean = null;
 
+		try {
+			updatedBookingViewBean = bookingService.updateBooking(bookingID, bookingViewBean);
+
+			rm.setResponseStatus(ResponseStatus.OK);
+			rm.setMessage(ResponseStatus.OK.getDescription());
+			rm.setData(updatedBookingViewBean);
+			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
+
+		} catch (BookingException e) {
+			rm.setResponseStatus(ResponseStatus.BOOKING_NOT_FOUND);
+			rm.setMessage(ResponseStatus.BOOKING_NOT_FOUND.getDescription());
+			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	
+	 }
+
+	// -------------------Delete a
+		// booking--------------------------------------------------------
+
+		@RequestMapping(value = "/delete/{bookingID}", method = RequestMethod.PUT)
+		public ResponseEntity<ResponseMessage> deleteBooking(@PathVariable int bookingID) {
+			System.out.println("Deleting booking.. ");
+
+			ResponseMessage rm = new ResponseMessage();
+
+			try {
+				bookingService.deleteBooking(bookingID);
+
+				rm.setResponseStatus(ResponseStatus.OK);
+				rm.setMessage(ResponseStatus.OK.getDescription());
+				
+				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
+
+			} catch (BookingException e) {
+				rm.setResponseStatus(ResponseStatus.BOOKING_NOT_FOUND);
+				rm.setMessage(ResponseStatus.BOOKING_NOT_FOUND.getDescription());
+				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+
+			// HttpHeaders headers = new HttpHeaders();
+			// headers.setLocation(ucBuilder.path("/booking/{id}").buildAndExpand(bookingServiceDto.getUser().getId()).toUri());
+
+
+		}
 }
