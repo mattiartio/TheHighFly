@@ -70,6 +70,7 @@ public class BookingServiceImpl implements BookingService {
 		booking.setDateFrom(bookingViewBean.getDataFrom());
 		booking.setDateTo(bookingViewBean.getDataTo());
 		booking.setPriceTot(transport.getPrice());
+		booking.setSeats(bookingViewBean.getSeats());
 
 		bookingDao.insert(booking);
 
@@ -126,7 +127,7 @@ public class BookingServiceImpl implements BookingService {
 		booking.setName(bookingViewBean.getName());
 		booking.setSurname(bookingViewBean.getSurname());
 		booking.setPriceTot(bookingViewBean.getTransportViewBean().getPrice());
-
+		booking.setSeats(bookingViewBean.getSeats());
 		booking.setTransport(transport);
 		booking.setDateTo(bookingViewBean.getDataTo());
 		booking.setDateFrom(bookingViewBean.getDataFrom());
@@ -162,7 +163,8 @@ public class BookingServiceImpl implements BookingService {
 		tvb.setMaxSeats(b.getTransport().getMaxSeats());
 		tvb.setPrice(b.getTransport().getPrice());
 		tvb.setVehicle(b.getTransport().getType().getType());
-
+		
+		bvb.setSeats(b.getSeats());
 		bvb.setUsername(b.getClient().getUsername());
 		bvb.setName(b.getClient().getName());
 		bvb.setSurname(b.getClient().getSurname());

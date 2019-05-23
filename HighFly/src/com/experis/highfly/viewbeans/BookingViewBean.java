@@ -3,7 +3,7 @@ package com.experis.highfly.viewbeans;
 import java.util.Date;
 
 public class BookingViewBean {
-	
+
 	private String username;
 	private String name;
 	private String surname;
@@ -11,6 +11,7 @@ public class BookingViewBean {
 	private Date dataFrom;
 	private Date dataTo;
 	private Float price;
+	private int seats;
 
 	public String getName() {
 		return name;
@@ -66,5 +67,13 @@ public class BookingViewBean {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public int getSeats() {
+		return seats;
+	}
+
+	public void setSeats(int seats) {
+		this.seats = seats;
 	}
 }

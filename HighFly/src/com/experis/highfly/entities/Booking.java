@@ -50,6 +50,17 @@ public class Booking implements Serializable {
 	@Column(name = "surname", nullable = false)
 	private String surname;
 
+	@Column(name = "number_seats", nullable = false)
+	private int seats;
+
+	public int getSeats() {
+		return seats;
+	}
+
+	public void setSeats(int seats) {
+		this.seats = seats;
+	}
+
 	public String getName() {
 		return name;
 	}
