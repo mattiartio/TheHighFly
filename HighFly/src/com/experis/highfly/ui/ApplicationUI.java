@@ -50,7 +50,7 @@ public class ApplicationUI
 		
 		userService = (UserService)context.getBean("userService");
 		
-		User user = userService.authenticate("admin","admin");
+		User user = userService.authenticate("admin", "admin");
 		
 		if(user != null) {
 			System.out.println("\n" + user + "\n");

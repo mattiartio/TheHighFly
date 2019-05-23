@@ -22,7 +22,7 @@ public class RoleDaoImpl extends GenericDaoImpl<Role> implements RoleDao {
 		
 		q.setParameter("tipo", type);
 		
-		return (Role)q.getResultList().get(0);
+		return  (q.getResultList().size() >0) ? (Role)q.getResultList().get(0) : null;
 	}
 	
 }

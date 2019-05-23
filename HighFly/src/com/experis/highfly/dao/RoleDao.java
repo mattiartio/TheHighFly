@@ -6,7 +6,7 @@ import com.experis.highfly.entities.Role;
 
 public interface RoleDao
 {
-
-	List<Role> listAllByType(String type);
+	
+	Role findByType(String type);
 
 }

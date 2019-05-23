@@ -32,12 +32,22 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 	}
 	
 
-	public List<User> findUserByUsername(String username){
-		List<User> users =null;
-		Query q = em.createQuery("Select u.username from User u where username=:user");
+	public User findUserByUsername(String username){
+		
+		Query q = em.createQuery("Select u from User u where username=:user");
 		q.setParameter("user", username);
-		users = (List<User>)q.getResultList();
-		return users;
+		
+//		if(q.getResultList().size() > 0)
+//		{
+//			return (User)q.getResultList().get(0);
+//		}
+//		else
+//		{
+//			return null;
+//		}
+		
+		return (q.getResultList().size() > 0)? (User)q.getResultList().get(0) : null;
+	
 	}
 	
 }

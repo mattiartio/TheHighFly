@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService
 	@Override
 	public void saveUser(UserViewBean user) throws Exception
 	{
+		System.out.println(userDao.findUserByUsername(user.getUsername()));
 		if (userDao.findUserByUsername(user.getUsername()) != null)
 			throw new SaveException("Username already existing");
 		User utente = fillUser(user);
