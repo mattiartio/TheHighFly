@@ -1,7 +1,7 @@
 package com.experis.highfly.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +43,28 @@ public class Booking implements Serializable {
 
 	@Column(name = "booking_price_tot", nullable = false)
 	private float priceTot;
+
+	@Column(name = "name", nullable = false)
+	private String name;
+
+	@Column(name = "surname", nullable = false)
+	private String surname;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
 
 	public int getId() {
 		return id;

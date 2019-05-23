@@ -30,7 +30,7 @@ import com.experis.highfly.utils.BookingFilter;
 import com.experis.highfly.viewbeans.BookingViewBean;
 import com.experis.highfly.viewbeans.TransportViewBean;
 
-@Service(value = "orderService")
+@Service(value = "bookingService")
 //@Transactional(propagation=Propagation.MANDATORY)
 //@Transactional(propagation=Propagation.REQUIRES_NEW)
 //@Transactional(propagation=Propagation.NEVER)
@@ -73,10 +73,6 @@ public class BookingServiceImpl implements BookingService {
 
 		bookingDao.insert(booking);
 
-		transport.setMaxSeats(transport.getMaxSeats() - 1);
-
-		transportDao.update(transport);
-
 		return bookingViewBean;
 	}
 
@@ -99,7 +95,6 @@ public class BookingServiceImpl implements BookingService {
 		List<Booking> bookings = bookingDao.findBookingByFilters(bookingFilter);
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
 
-		
 		for (Booking b : bookings) {
 			bookingViewBeans.add(fillBookingViewBean(b));
 		}
@@ -108,16 +103,55 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public BookingViewBean findByBookingId(int bookingId) throws BookingException{
-		
+	public BookingViewBean findByBookingId(int bookingId) throws BookingException {
+
 		Booking booking = bookingDao.find(bookingId);
 		if (booking == null)
 			throw new BookingException();
-		
+
 		BookingViewBean bookingViewBean = fillBookingViewBean(booking);
-		
+
 		return bookingViewBean;
 	}
+
+	@Override
+	public BookingViewBean updateBooking(int bookingId, BookingViewBean bookingViewBean) throws BookingException {
+
+		Booking booking = bookingDao.find(bookingId);
+		Transport transport = transportDao.find(bookingViewBean.getTransportViewBean().getIdTransport());
+
+		if (booking == null || transport == null)
+			throw new BookingException();
+
+		booking.setName(bookingViewBean.getName());
+		booking.setSurname(bookingViewBean.getSurname());
+		booking.setPriceTot(bookingViewBean.getTransportViewBean().getPrice());
+
+		booking.setTransport(transport);
+		booking.setDateTo(bookingViewBean.getDataTo());
+		booking.setDateFrom(bookingViewBean.getDataFrom());
+
+		bookingDao.update(booking);
+
+		return bookingViewBean;
+	}
+
+	@Override
+	public void deleteBooking(int bookingId) throws BookingException {
+		Booking booking = bookingDao.find(bookingId);
+
+		if (booking == null)
+			throw new BookingException("Booking not found... delete failed");
+		else
+			bookingDao.delete(bookingId);
+	}
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------*/
 
 	private BookingViewBean fillBookingViewBean(Booking b) {
 
@@ -129,6 +163,7 @@ public class BookingServiceImpl implements BookingService {
 		tvb.setPrice(b.getTransport().getPrice());
 		tvb.setVehicle(b.getTransport().getType().getType());
 
+		bvb.setUsername(b.getClient().getUsername());
 		bvb.setName(b.getClient().getName());
 		bvb.setSurname(b.getClient().getSurname());
 		bvb.setPrice(b.getTransport().getPrice());

@@ -9,12 +9,15 @@ import com.experis.highfly.viewbeans.BookingViewBean;
 public interface BookingService {
 
 	BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception;
-	
+
 	List<BookingViewBean> findAll() throws Exception;
 
-	
 	List<BookingViewBean> findAllByUserId(BookingFilter bookingFilter) throws Exception;
 
 	BookingViewBean findByBookingId(int bookingId) throws BookingException;
+
+	void deleteBooking(int bookingId) throws BookingException;
+
+	BookingViewBean updateBooking(int bookingId, BookingViewBean bookingViewBean) throws BookingException;
 
 }
