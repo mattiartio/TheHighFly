@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.experis.highfly.dao.TransportDao;
 import com.experis.highfly.entities.Transport;
 
 @Repository(value = "transportDao")
+@Scope(value = "prototype")
 public class TransportDaoImpl extends GenericDaoImpl<Transport> implements TransportDao {
 
 	@Override

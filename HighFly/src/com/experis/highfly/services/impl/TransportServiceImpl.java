@@ -3,11 +3,11 @@ package com.experis.highfly.services.impl;
 import java.sql.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.experis.highfly.dao.TransportDao;
 import com.experis.highfly.dao.VehicleDao;
@@ -17,6 +17,7 @@ import com.experis.highfly.services.TransportService;
 import com.experis.highfly.viewbeans.TransportViewBean;
 
 @Service(value = "transportService")
+@Transactional(propagation = Propagation.REQUIRED)
 public class TransportServiceImpl implements TransportService {
 
 	@Autowired
@@ -28,7 +29,7 @@ public class TransportServiceImpl implements TransportService {
 	VehicleDao vehicleDao;
 
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public Transport saveTransport(TransportViewBean transportVB) {
 
 		Transport t = new Transport();
@@ -47,7 +48,7 @@ public class TransportServiceImpl implements TransportService {
 	}
 
 	@Override
-	@Transactional
+	// @Transactional
 	public Transport deleteTransport(int transportId) {
 		Transport t = new Transport();
 		t = transportDao.find(transportId);

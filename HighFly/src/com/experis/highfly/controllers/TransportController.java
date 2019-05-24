@@ -86,7 +86,7 @@ public class TransportController {
 	}
 
 	// --------------------------------- List by Type-----------------------
-	@RequestMapping(value = "/listAll/{type}/", method = RequestMethod.GET)
+	@RequestMapping(value = "/listAll/{type}", method = RequestMethod.GET)
 	public ResponseEntity<List<Transport>> listByTransportType(@PathVariable("type") String type) {
 		List<Transport> transports;
 
