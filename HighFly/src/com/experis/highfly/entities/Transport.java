@@ -39,7 +39,7 @@ public class Transport implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_type", nullable = false)
-	private Vehicle type;
+	private Vehicle vehicle;
 
 	public int getId() {
 		return id;
@@ -74,15 +74,23 @@ public class Transport implements Serializable {
 	}
 
 	public Vehicle getType() {
-		return type;
+		return vehicle;
 	}
 
 	public void setType(Vehicle type) {
-		this.type = type;
+		this.vehicle = type;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 
 }

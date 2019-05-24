@@ -20,9 +20,9 @@ public class TransportDaoImpl extends GenericDaoImpl<Transport> implements Trans
 
 		List<Transport> retList = null;
 
-		Query q = em.createQuery("select t from Transport t where t.type.type = :transportType");
+		Query q = em.createQuery("Select t from Transport t join t.vehicle v where v.type = :transportType");
 		q.setParameter("transportType", transportType);
-		retList = q.getResultList();
+		retList = (List<Transport>) q.getResultList();
 
 		return retList;
 

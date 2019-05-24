@@ -12,7 +12,7 @@ public interface TransportService {
 
 	public Transport deleteTransport(int transportId);
 
-	public List<Transport> findByTransportType(String transportType) throws Exception;
+	public List<TransportViewBean> findByTransportType(String transportType) throws Exception;
 
 	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo) throws Exception;
 

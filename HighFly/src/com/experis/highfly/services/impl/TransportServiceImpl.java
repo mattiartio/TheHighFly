@@ -1,6 +1,7 @@
 package com.experis.highfly.services.impl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,30 @@ public class TransportServiceImpl implements TransportService {
 	}
 
 	@Override
-	public List<Transport> findByTransportType(String transportType) throws Exception {
-		return transportDao.findByTransportType(transportType);
+	public List<TransportViewBean> findByTransportType(String transportType) throws Exception {
+
+		List<Transport> transports = transportDao.findByTransportType(transportType);
+
+		List<TransportViewBean> transportViewBeans = new ArrayList<TransportViewBean>();
+
+		for (Transport t : transports) {
+			transportViewBeans.add(fillTransportViewBean(t));
+		}
+
+		return transportViewBeans;
+	}
+
+	private TransportViewBean fillTransportViewBean(Transport transport) {
+
+		TransportViewBean transportViewBean = new TransportViewBean();
+
+		transportViewBean.setIdTransport(transport.getId());
+		transportViewBean.setMaxSeats(transport.getMaxSeats());
+		transportViewBean.setPrice(transport.getPrice());
+		transportViewBean.setVehicle(transport.getVehicle().getType());
+
+		return transportViewBean;
+
 	}
 
 	@Override
