@@ -14,6 +14,6 @@ public interface TransportService {
 
 	public List<TransportViewBean> findByTransportType(String transportType) throws Exception;
 
-	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo) throws Exception;
+	public List<TransportViewBean> findAvailableTransport(Date dateFrom, Date dateTo) throws Exception;
 
 }

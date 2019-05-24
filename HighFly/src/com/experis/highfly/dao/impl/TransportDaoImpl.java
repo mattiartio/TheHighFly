@@ -37,7 +37,7 @@ public class TransportDaoImpl extends GenericDaoImpl<Transport> implements Trans
 		q.setParameter("dateFrom", dateFrom);
 		q.setParameter("dateTo", dateTo);
 
-		retList = q.getResultList();
+		retList = (List<Transport>) q.getResultList();
 
 		return retList;
 

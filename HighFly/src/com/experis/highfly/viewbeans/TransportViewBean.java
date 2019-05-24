@@ -1,5 +1,6 @@
 package com.experis.highfly.viewbeans;
 
+import java.util.Date;
 
 public class TransportViewBean {
 
@@ -7,6 +8,8 @@ public class TransportViewBean {
 	private float price;
 	private int maxSeats;
 	private String vehicle;
+	private Date dateFrom;
+	private Date dateTo;
 
 	public int getIdTransport() {
 		return idTransport;
@@ -14,6 +17,22 @@ public class TransportViewBean {
 
 	public void setIdTransport(int idTransport) {
 		this.idTransport = idTransport;
+	}
+
+	public Date getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(Date dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public Date getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(Date dateTo) {
+		this.dateTo = dateTo;
 	}
 
 	public float getPrice() {

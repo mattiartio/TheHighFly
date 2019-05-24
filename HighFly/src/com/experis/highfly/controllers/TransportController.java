@@ -1,6 +1,5 @@
 package com.experis.highfly.controllers;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,21 +104,21 @@ public class TransportController {
 	}
 
 	// -----------------------List of available transport-------------------
-	@RequestMapping(value = "/findAvailableTransport/{date-from}/{date-to}", method = RequestMethod.GET)
-	public ResponseEntity<List<Transport>> listAvailableTransport(@PathVariable("date-from") Date dateFrom,
-			@PathVariable("date-to") Date dateTo) {
-		List<Transport> transports;
+	@RequestMapping(value = "/availableTransport", method = RequestMethod.POST)
+	public ResponseEntity<List<TransportViewBean>> listAvailableTransport(
+			@RequestBody TransportViewBean transportViewBean) {
+		List<TransportViewBean> transports;
 
 		try {
-			transports = transportService.findAvailableTransport(dateFrom, dateTo);
+			transports = transportService.findAvailableTransport();
 			if (transports.isEmpty()) {
-				return new ResponseEntity<List<Transport>>(HttpStatus.NO_CONTENT);
+				return new ResponseEntity<List<TransportViewBean>>(HttpStatus.NO_CONTENT);
 			}
 
-			return new ResponseEntity<List<Transport>>(transports, HttpStatus.OK);
+			return new ResponseEntity<List<TransportViewBean>>(transports, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<List<Transport>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<List<TransportViewBean>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}

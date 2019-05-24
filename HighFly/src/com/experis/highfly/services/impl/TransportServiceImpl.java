@@ -59,20 +59,6 @@ public class TransportServiceImpl implements TransportService {
 		return t;
 	}
 
-	@Override
-	public List<TransportViewBean> findByTransportType(String transportType) throws Exception {
-
-		List<Transport> transports = transportDao.findByTransportType(transportType);
-
-		List<TransportViewBean> transportViewBeans = new ArrayList<TransportViewBean>();
-
-		for (Transport t : transports) {
-			transportViewBeans.add(fillTransportViewBean(t));
-		}
-
-		return transportViewBeans;
-	}
-
 	private TransportViewBean fillTransportViewBean(Transport transport) {
 
 		TransportViewBean transportViewBean = new TransportViewBean();
@@ -87,8 +73,32 @@ public class TransportServiceImpl implements TransportService {
 	}
 
 	@Override
-	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo) throws Exception {
-		return transportDao.findAvailableTransport(dateFrom, dateTo);
+	public List<TransportViewBean> findByTransportType(String transportType) throws Exception {
+
+		List<Transport> transports = transportDao.findByTransportType(transportType);
+
+		List<TransportViewBean> transportViewBeans = new ArrayList<TransportViewBean>();
+
+		for (Transport t : transports) {
+			transportViewBeans.add(fillTransportViewBean(t));
+		}
+
+		return transportViewBeans;
+	}
+
+	@Override
+	public List<TransportViewBean> findAvailableTransport(Date dateFrom, Date dateTo) throws Exception {
+
+		List<Transport> transports = transportDao.findAvailableTransport(dateFrom, dateTo);
+
+		List<TransportViewBean> transportViewBeans = new ArrayList<TransportViewBean>();
+
+		for (Transport t : transports) {
+			transportViewBeans.add(fillTransportViewBean(t));
+		}
+
+		return transportViewBeans;
+
 	}
 
 }
