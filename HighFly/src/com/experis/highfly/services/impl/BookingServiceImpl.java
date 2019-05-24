@@ -146,12 +146,7 @@ public class BookingServiceImpl implements BookingService {
 		else
 			bookingDao.delete(bookingId);
 	}
-	
-	
-	
-	
-	
-	
+
 	/*-----------------------------------------------------------*/
 
 	private BookingViewBean fillBookingViewBean(Booking b) {
@@ -163,7 +158,7 @@ public class BookingServiceImpl implements BookingService {
 		tvb.setMaxSeats(b.getTransport().getMaxSeats());
 		tvb.setPrice(b.getTransport().getPrice());
 		tvb.setVehicle(b.getTransport().getType().getType());
-		
+
 		bvb.setSeats(b.getSeats());
 		bvb.setUsername(b.getClient().getUsername());
 		bvb.setName(b.getClient().getName());

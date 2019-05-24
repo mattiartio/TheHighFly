@@ -7,6 +7,7 @@ import com.experis.highfly.config.ConfigurationBean;
 import com.experis.highfly.entities.User;
 import com.experis.highfly.exception.AuthenticationException;
 import com.experis.highfly.services.UserService;
+import com.experis.highfly.viewbeans.UserViewBean;
 
 
 public class ApplicationUI
@@ -50,10 +51,10 @@ public class ApplicationUI
 		
 		userService = (UserService)context.getBean("userService");
 		
-		User user = userService.authenticate("admin", "admin");
+		UserViewBean userViewBean = userService.authenticate("admin", "admin");
 		
-		if(user != null) {
-			System.out.println("\n" + user + "\n");
+		if(userViewBean != null) {
+			System.out.println("\n" + userViewBean + "\n");
 			System.out.println("\nUtente correttamente autenticato\n");
 		}
 		
