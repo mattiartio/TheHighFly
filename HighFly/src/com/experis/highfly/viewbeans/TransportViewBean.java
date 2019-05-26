@@ -10,6 +10,7 @@ public class TransportViewBean {
 	private String vehicle;
 	private Date dateFrom;
 	private Date dateTo;
+	private int numPosti;
 
 	public int getIdTransport() {
 		return idTransport;
@@ -57,5 +58,13 @@ public class TransportViewBean {
 
 	public void setVehicle(String vehicle) {
 		this.vehicle = vehicle;
+	}
+
+	public int getNumPosti() {
+		return numPosti;
+	}
+
+	public void setNumPosti(int numPosti) {
+		this.numPosti = numPosti;
 	}
 }

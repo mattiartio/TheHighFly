@@ -7,6 +7,7 @@ public class BookingFilter {
 	private String name;
 	private String surname;
 	private String vehicle;
+	private int transportId;
 	private String company;
 	private Date dateFrom;
 	private Date dateTo;
@@ -66,6 +67,14 @@ public class BookingFilter {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public int getTransportId() {
+		return transportId;
+	}
+
+	public void setTransportId(int transportId) {
+		this.transportId = transportId;
 	}
 
 }

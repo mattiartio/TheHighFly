@@ -14,7 +14,9 @@ public enum ResponseStatus
 	
 	BOOKING_NOT_FOUND(6, "Booking not found"),
 	
-	DUPLICATE_RECORD(7, "Record already in database");
+	DUPLICATE_RECORD(7, "Record already in database"),
+	
+	TRANSPORT_NOT_FOUND(8, "Transport not found");
 	
 	
 	

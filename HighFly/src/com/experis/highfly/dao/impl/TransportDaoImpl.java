@@ -1,6 +1,6 @@
 package com.experis.highfly.dao.impl;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -20,24 +20,48 @@ public class TransportDaoImpl extends GenericDaoImpl<Transport> implements Trans
 
 		List<Transport> retList = null;
 
-		Query q = em.createQuery("Select t from Transport t join t.vehicle v where v.type = :transportType");
+		Query q = em.createQuery("select t from Transport t join t.vehicle v where v.type = :transportType");
 		q.setParameter("transportType", transportType);
-		retList = (List<Transport>) q.getResultList();
+		retList = (List<Transport>)q.getResultList();
 
 		return retList;
 
 	}
 
-	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo) {
+	public List<Transport> findAvailableTransport(Date dateFrom, Date dateTo, String type, int numPosti) {
 		List<Transport> retList = null;
+		Query q;
+		
+		if (type == "car")
+		{
+			q = em.createQuery("select t from Transport t where t.id not in "
+					+ "("
+					+ "select tr.id from Booking b join b.transport tr where"
+					+ "((b.dateFrom >= :dataInizio and b.dateTo <= :dataFine) or"
+					+ "(b.dateFrom <= :dataInizio and b.dateTo >= :dataFine)) and "
+					+ ")"
+					+ "t.vehicle.type = :type");
+		}
+		else {
+			q = em.createQuery("select t from Transport t where t.id not in "
+					+ "("
+					+ "select tr.id from Booking b join b.transport tr "
+					+ "where ((b.dateFrom >= :dataInizio and b.dateTo <= :dataFine) "
+					+ "or (b.dateFrom <= :dataInizio and b.dateTo >= :dataFine)) "
+					+ "group by tr.id "
+					+ "having sum (b.seats) > t.maxSeats - :numPosti"
+					+ ")"
+					+ "and t.vehicle.type = :type ");
+			q.setParameter("numPosti", numPosti);
+		}
+		
+		
+		q.setParameter("dataInizio", dateFrom);
+		q.setParameter("dataFine", dateTo);
+		q.setParameter("type", type);
+		
 
-		Query q = em.createNativeQuery(
-				"select t from Transport t where t.id not in ( select t.id from Booking b, Transport t where b.transport = t.id and b.dateFrom > :dateFrom and b.dateTo < :dateTo)");
-
-		q.setParameter("dateFrom", dateFrom);
-		q.setParameter("dateTo", dateTo);
-
-		retList = (List<Transport>) q.getResultList();
+		retList = (List<Transport>)q.getResultList();
 
 		return retList;
 

@@ -15,17 +15,12 @@ import com.experis.highfly.entities.Vehicle;
 @Scope(value = "prototype")
 public class VehicleDaoImpl extends GenericDaoImpl<Vehicle> implements VehicleDao {
 
-	public int findIdByType(String type) {
-
-		int id;
-
-		Query q = em.createQuery("select v.id from Vehicle v where v.type=:tipo");
+	public Vehicle findByType(String type) {
+		Query q = em.createQuery("select v from Vehicle v where v.type=:tipo");
 
 		q.setParameter("tipo", type);
 
-		id = (int) q.getSingleResult();
-
-		return id;
+		return (Vehicle)q.getResultList().get(0);
 	}
 
 }

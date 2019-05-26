@@ -4,6 +4,6 @@ import com.experis.highfly.entities.Vehicle;
 
 public interface VehicleDao extends GenericDao<Vehicle> {
 
-	public int findIdByType(String type);
+	public Vehicle findByType(String type);
 
 }

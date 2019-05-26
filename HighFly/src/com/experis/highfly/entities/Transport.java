@@ -34,8 +34,8 @@ public class Transport implements Serializable {
 	@Column(name = "price", nullable = false)
 	private float price;
 
-	@OneToMany(mappedBy = "transport")
-	private List<Booking> bookings;
+//	@OneToMany(mappedBy = "transport")
+//	private List<Booking> bookings;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_type", nullable = false)
@@ -65,21 +65,13 @@ public class Transport implements Serializable {
 		this.price = price;
 	}
 
-	public List<Booking> getBookings() {
-		return bookings;
-	}
-
-	public void setBookings(List<Booking> bookings) {
-		this.bookings = bookings;
-	}
-
-	public Vehicle getType() {
-		return vehicle;
-	}
-
-	public void setType(Vehicle type) {
-		this.vehicle = type;
-	}
+//	public List<Booking> getBookings() {
+//		return bookings;
+//	}
+//
+//	public void setBookings(List<Booking> bookings) {
+//		this.bookings = bookings;
+//	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

@@ -73,7 +73,6 @@ public class UserServiceImpl implements UserService
 		u.setName(user.getNome());
 		u.setSurname(user.getCognome());
 		u.setEmail(user.getEmail());
-		u.setCompany(user.getCompany());
 		u.setRole(roleDao.findByType(user.getRole()));
 
 		return u;

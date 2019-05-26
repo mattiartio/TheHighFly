@@ -16,6 +16,7 @@ import com.experis.highfly.utils.BookingFilter;
 
 public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDao {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Booking> findBookingByFilters(BookingFilter bookingFilter) {
 
@@ -23,7 +24,7 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 
 		List<Booking> booking = null;
 		try {
-			String query = "select b from Booking join b.user u, b.vehicle v";
+			String query = "select b from Booking b join b.client u join b.transport t join t.vehicle v";
 
 			if (bookingFilter.getName() != null && !bookingFilter.getName().isEmpty()) {
 				condition = true;
@@ -48,34 +49,42 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 			}
 			if (bookingFilter.getCompany() != null && !bookingFilter.getCompany().isEmpty()) {
 				if (condition) {
-					query += "and u.company = :comp";
+					query += " and u.company = :comp";
 				} else {
 					condition = true;
-					query += " where u.company= :comp";
+					query += " where u.company = :comp";
 				}
 			}
 			if (bookingFilter.getDateTo() != null) {
 				if (condition) {
-					query += "and b.dateTo = :datTo";
+					query += " and b.dateTo = :datTo";
 				} else {
 					condition = true;
-					query += " where b.dateTo= :datTo";
+					query += " where b.dateTo = :datTo";
 				}
 			}
 			if (bookingFilter.getDateFrom() != null) {
 				if (condition) {
-					query += "and b.dateFrom = :datFrom";
+					query += " and b.dateFrom = :datFrom";
 				} else {
 					condition = true;
-					query += " where b.dateFrom =:datFrom";
+					query += " where b.dateFrom = :datFrom";
 				}
 			}
-			if ((Integer) bookingFilter.getUserId() != null) {
+			if ((Integer) bookingFilter.getUserId() != null && (Integer) bookingFilter.getUserId() != 0) {
 				if (condition) {
-					query += "and b.userId = :user";
+					query += " and u.id = :user";
 				} else {
 					condition = true;
-					query += " where b.userId =:user";
+					query += " where u.id = :user";
+				}
+			}
+			if ((Integer)bookingFilter.getTransportId() != null && (Integer)bookingFilter.getTransportId() != 0) {
+				if (condition) {
+					query += " and t.id = :transport";
+				} else {
+					condition = true;
+					query += " where t.id = :transport";
 				}
 			}
 
@@ -99,12 +108,15 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 			if (bookingFilter.getDateFrom() != null) {
 				q.setParameter("datFrom", bookingFilter.getDateFrom());
 			}
-			if (bookingFilter.getDateFrom() != null) {
+			if ((Integer)bookingFilter.getUserId() != null && (Integer) bookingFilter.getUserId() != 0) {
 				q.setParameter("user", bookingFilter.getUserId());
+			}
+			if ((Integer)bookingFilter.getTransportId() != null && (Integer)bookingFilter.getTransportId() != 0) {
+				q.setParameter("transport", bookingFilter.getTransportId());
 			}
 
 
-			booking = q.getResultList();
+			booking = (List<Booking>)q.getResultList();
 			
 			
 		} finally {
