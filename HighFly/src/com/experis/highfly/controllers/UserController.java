@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.experis.highfly.entities.User;
 import com.experis.highfly.exception.AuthenticationException;
 import com.experis.highfly.exception.SaveException;
 import com.experis.highfly.messages.ResponseMessage;
@@ -28,19 +27,28 @@ public class UserController {
     //-------------------Retrieve Single User--------------------------------------------------------
       
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<User> getUser(@PathVariable("id") long id) {
+    public ResponseEntity<ResponseMessage> getUser(@PathVariable("id") long id) {
         System.out.println("Fetching User with id " + id);	//DA CREARE IL MESSAGGIO
-        User user;
+        UserViewBean user;
+        ResponseMessage message = new ResponseMessage();
 		try {
 			user = userService.findByPrimaryKey(id);
-			if (user == null) {
-				System.out.println("User with id " + id + " not found");
-				return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-			}
-			return new ResponseEntity<User>(user, HttpStatus.OK);
+			
+			message.setData(user);
+			
+			message.setResponseStatus(ResponseStatus.OK);
+			message.setMessage(ResponseStatus.OK.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
+			
+		} catch (AuthenticationException e)
+		{
+			System.out.println("User with id " + id + " not found");
+			message.setResponseStatus(ResponseStatus.USER_NOT_FOUND);
+			message.setMessage(ResponseStatus.USER_NOT_FOUND.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
     

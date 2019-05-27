@@ -74,14 +74,30 @@ public class UserServiceImpl implements UserService
 		u.setSurname(user.getCognome());
 		u.setEmail(user.getEmail());
 		u.setRole(roleDao.findByType(user.getRole()));
+		u.setCompany(user.getCompany());
+
+		return u;
+	}
+	
+	private UserViewBean fillUserViewBean(User user) throws Exception
+	{
+		UserViewBean u = new UserViewBean();
+
+		u.setUsername(user.getUsername());
+		u.setPassword(user.getPassword());
+		u.setNome(user.getName());
+		u.setCognome(user.getSurname());
+		u.setEmail(user.getEmail());
+		u.setRole(user.getRole().getType());
+		u.setCompany(user.getCompany());
 
 		return u;
 
 	}
 
 	@Override
-	public User findByPrimaryKey(Long id) throws Exception
+	public UserViewBean findByPrimaryKey(Long id) throws Exception
 	{
-		return userDao.find(id);
+		return fillUserViewBean(userDao.find(id));
 	}
 }
