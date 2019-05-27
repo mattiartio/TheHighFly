@@ -1,6 +1,5 @@
 package com.experis.highfly.controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.experis.highfly.entities.Transport;
-import com.experis.highfly.entities.User;
 import com.experis.highfly.messages.ResponseMessage;
 import com.experis.highfly.messages.ResponseStatus;
 import com.experis.highfly.services.TransportService;
@@ -33,18 +30,18 @@ public class TransportController {
 		System.out.println("Creating Transport " + transportVB.getVehicle());
 
 		TransportViewBean createdTransport = null;
-		
+
 		ResponseMessage rm = new ResponseMessage();
 
 		try {
-			
 
-			if (transportVB.getNumPosti() == 0 || transportVB.getPrice() == 0 || transportVB.getVehicle() == null || transportVB.getVehicle().isEmpty()) {
+			if (transportVB.getNumPosti() == 0 || transportVB.getPrice() == 0 || transportVB.getVehicle() == null
+					|| transportVB.getVehicle().isEmpty()) {
 				rm.setResponseStatus(ResponseStatus.JSON_ERROR);
 				rm.setMessage(ResponseStatus.JSON_ERROR.getDescription());
 				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
 			}
-			
+
 			createdTransport = transportService.saveTransport(transportVB);
 
 			rm.setResponseStatus(ResponseStatus.OK);
@@ -71,7 +68,6 @@ public class TransportController {
 		ResponseMessage rm = new ResponseMessage();
 
 		try {
-			
 
 			currentTransport = transportService.deleteTransport(transportViewBean.getIdTransport());
 
@@ -96,12 +92,12 @@ public class TransportController {
 	}
 
 	// --------------------------------- List by Type-----------------------
-	@RequestMapping(value = "/listAll/{type}/", method = RequestMethod.GET)
+	@RequestMapping(value = "/listAll/{type}", method = RequestMethod.GET)
 	public ResponseEntity<ResponseMessage> listByTransportType(@PathVariable("type") String type) {
 		List<TransportViewBean> transports;
 
 		ResponseMessage rm = new ResponseMessage();
-		
+
 		System.out.println("List of all \"" + type + "\" transports");
 		try {
 			transports = transportService.findByTransportType(type);
@@ -121,35 +117,34 @@ public class TransportController {
 			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	// --------------------------------- Find all----------------------
-		@RequestMapping(value = "/listAll", method = RequestMethod.GET)
-		public ResponseEntity<ResponseMessage> listByTransportType() {
-			List<TransportViewBean> transports;
-			ResponseMessage message = new ResponseMessage();
-			
-			System.out.println("List of all transports");
-			try {
-				transports = transportService.findAll();
-				if (transports.isEmpty()) {
-					message.setResponseStatus(ResponseStatus.TRANSPORT_NOT_FOUND);
-					message.setMessage("No transport in database");
-					return new ResponseEntity<ResponseMessage>(message, HttpStatus.NO_CONTENT);
-				}
-				else {
-					message.setData(transports);
-					message.setResponseStatus(ResponseStatus.OK);
-					message.setMessage(ResponseStatus.OK.getDescription());
-					return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
-				}
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				message.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
-				message.setMessage(ResponseStatus.INTERNAL_SERVER_ERROR.getDescription());
-				return new ResponseEntity<ResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+	// --------------------------------- Find all----------------------
+	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
+	public ResponseEntity<ResponseMessage> listByTransportType() {
+		List<TransportViewBean> transports;
+		ResponseMessage message = new ResponseMessage();
+
+		System.out.println("List of all transports");
+		try {
+			transports = transportService.findAll();
+			if (transports.isEmpty()) {
+				message.setResponseStatus(ResponseStatus.TRANSPORT_NOT_FOUND);
+				message.setMessage("No transport in database");
+				return new ResponseEntity<ResponseMessage>(message, HttpStatus.NO_CONTENT);
+			} else {
+				message.setData(transports);
+				message.setResponseStatus(ResponseStatus.OK);
+				message.setMessage(ResponseStatus.OK.getDescription());
+				return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
 			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			message.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
+			message.setMessage(ResponseStatus.INTERNAL_SERVER_ERROR.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
 
 	// -----------------------List of available transport-------------------
 	@RequestMapping(value = "/findAvailableTransport", method = RequestMethod.POST)
@@ -158,16 +153,15 @@ public class TransportController {
 		ResponseMessage message = new ResponseMessage();
 
 		try {
-			transports = transportService.findAvailableTransport(transportViewBean.getDateFrom(), transportViewBean.getDateTo(), transportViewBean.getVehicle(), transportViewBean.getNumPosti());
-			
-			
-			
+			transports = transportService.findAvailableTransport(transportViewBean.getDateFrom(),
+					transportViewBean.getDateTo(), transportViewBean.getVehicle(), transportViewBean.getNumPosti());
+
 			if (transports.isEmpty()) {
 				message.setResponseStatus(ResponseStatus.LIST_NOT_FOUND);
 				message.setMessage(ResponseStatus.LIST_NOT_FOUND.getDescription());
 				return new ResponseEntity<ResponseMessage>(message, HttpStatus.NO_CONTENT);
 			}
-			
+
 			else {
 				message.setData(transports);
 				message.setResponseStatus(ResponseStatus.OK);
@@ -175,7 +169,6 @@ public class TransportController {
 				return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
 			}
 
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			message.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
