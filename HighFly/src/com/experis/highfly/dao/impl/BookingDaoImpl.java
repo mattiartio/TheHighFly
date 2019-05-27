@@ -28,14 +28,14 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 
 			if (bookingFilter.getName() != null && !bookingFilter.getName().isEmpty()) {
 				condition = true;
-				query += " where u.name = :nam ";
+				query += " where b.name = :nam ";
 			}
 			if (bookingFilter.getSurname() != null && !bookingFilter.getSurname().isEmpty()) {
 				if (condition) {
-					query += " and u.surname = :sur";
+					query += " and b.surname = :sur";
 				} else {
 					condition = true;
-					query += " where u.surname = :sur";
+					query += " where b.surname = :sur";
 				}
 			}
 			if (bookingFilter.getVehicle() != null && !bookingFilter.getVehicle().isEmpty()) {
@@ -79,7 +79,7 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 					query += " where u.id = :user";
 				}
 			}
-			if ((Integer)bookingFilter.getTransportId() != null && (Integer)bookingFilter.getTransportId() != 0) {
+			if ((Integer) bookingFilter.getTransportId() != null && (Integer) bookingFilter.getTransportId() != 0) {
 				if (condition) {
 					query += " and t.id = :transport";
 				} else {
@@ -108,17 +108,15 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 			if (bookingFilter.getDateFrom() != null) {
 				q.setParameter("datFrom", bookingFilter.getDateFrom());
 			}
-			if ((Integer)bookingFilter.getUserId() != null && (Integer) bookingFilter.getUserId() != 0) {
+			if ((Integer) bookingFilter.getUserId() != null && (Integer) bookingFilter.getUserId() != 0) {
 				q.setParameter("user", bookingFilter.getUserId());
 			}
-			if ((Integer)bookingFilter.getTransportId() != null && (Integer)bookingFilter.getTransportId() != 0) {
+			if ((Integer) bookingFilter.getTransportId() != null && (Integer) bookingFilter.getTransportId() != 0) {
 				q.setParameter("transport", bookingFilter.getTransportId());
 			}
 
+			booking = (List<Booking>) q.getResultList();
 
-			booking = (List<Booking>)q.getResultList();
-			
-			
 		} finally {
 			em.close();
 		}

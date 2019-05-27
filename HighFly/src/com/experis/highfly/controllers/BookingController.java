@@ -64,7 +64,6 @@ public class BookingController {
 
 		try {
 			// controllo dei dati
-
 			userBookings = bookingService.findAllByUserId(bookingFilter);
 			rm.setResponseStatus(ResponseStatus.OK);
 			rm.setMessage(ResponseStatus.OK.getDescription());
@@ -140,18 +139,16 @@ public class BookingController {
 			return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-
-
 	}
 
 	// ------------------- Update a booking
 	// --------------------------------------------------------
 
-	 @RequestMapping(value = "/update/{bookingID}", method = RequestMethod.PUT)
-	 public ResponseEntity<ResponseMessage>
-	 updateBooking(@PathVariable("id_booking") int bookingID ,@RequestBody BookingViewBean bookingViewBean ) {
-	 System.out.println("Updating booking " + bookingID );
-	
+	@RequestMapping(value = "/update/{bookingID}", method = RequestMethod.PUT)
+	public ResponseEntity<ResponseMessage> updateBooking(@PathVariable("bookingID") int bookingID,
+			@RequestBody BookingViewBean bookingViewBean) {
+		System.out.println("Updating booking " + bookingID);
+
 		ResponseMessage rm = new ResponseMessage();
 		BookingViewBean updatedBookingViewBean = null;
 
@@ -173,39 +170,37 @@ public class BookingController {
 			return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-	
-	 }
+	}
 
 	// -------------------Delete a
-		// booking--------------------------------------------------------
+	// booking--------------------------------------------------------
 
-		@RequestMapping(value = "/delete/{bookingID}", method = RequestMethod.PUT)
-		public ResponseEntity<ResponseMessage> deleteBooking(@PathVariable int bookingID) {
-			System.out.println("Deleting booking.. ");
+	@RequestMapping(value = "/delete/{bookingID}", method = RequestMethod.GET)
+	public ResponseEntity<ResponseMessage> deleteBooking(@PathVariable int bookingID) {
+		System.out.println("Deleting booking.. ");
 
-			ResponseMessage rm = new ResponseMessage();
+		ResponseMessage rm = new ResponseMessage();
 
-			try {
-				bookingService.deleteBooking(bookingID);
+		try {
+			bookingService.deleteBooking(bookingID);
 
-				rm.setResponseStatus(ResponseStatus.OK);
-				rm.setMessage(ResponseStatus.OK.getDescription());
-				
-				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
+			rm.setResponseStatus(ResponseStatus.OK);
+			rm.setMessage(ResponseStatus.OK.getDescription());
 
-			} catch (BookingException e) {
-				rm.setResponseStatus(ResponseStatus.BOOKING_NOT_FOUND);
-				rm.setMessage(ResponseStatus.BOOKING_NOT_FOUND.getDescription());
-				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
+		} catch (BookingException e) {
+			rm.setResponseStatus(ResponseStatus.BOOKING_NOT_FOUND);
+			rm.setMessage(ResponseStatus.BOOKING_NOT_FOUND.getDescription());
+			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
 
-			// HttpHeaders headers = new HttpHeaders();
-			// headers.setLocation(ucBuilder.path("/booking/{id}").buildAndExpand(bookingServiceDto.getUser().getId()).toUri());
-
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
+		// HttpHeaders headers = new HttpHeaders();
+		// headers.setLocation(ucBuilder.path("/booking/{id}").buildAndExpand(bookingServiceDto.getUser().getId()).toUri());
+
+	}
 }
