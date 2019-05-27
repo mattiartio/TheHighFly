@@ -8,9 +8,9 @@ import com.experis.highfly.viewbeans.UserViewBean;
 public interface UserService
 {
 
-	User findByPrimaryKey(Long id) throws Exception;
+	UserViewBean findByPrimaryKey(Long id) throws Exception;
 
-	UserViewBean authenticate(String username, String password) throws AuthenticationException;
+	UserViewBean authenticate(String username, String password) throws AuthenticationException, Exception;
 	
 	void saveUser(UserViewBean user) throws Exception;
 

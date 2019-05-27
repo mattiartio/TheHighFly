@@ -6,6 +6,7 @@ public class UserViewBean
 	private String password;
 	private String nome;
 	private String cognome;
+	private String company;
 	private String email;
 	private String role;
 	
@@ -56,5 +57,19 @@ public class UserViewBean
 	public void setRole(String role)
 	{
 		this.role = role;
+	}
+	/**
+	 * @return the company
+	 */
+	public String getCompany()
+	{
+		return company;
+	}
+	/**
+	 * @param company the company to set
+	 */
+	public void setCompany(String company)
+	{
+		this.company = company;
 	}
 }
