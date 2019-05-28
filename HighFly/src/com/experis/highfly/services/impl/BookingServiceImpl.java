@@ -81,6 +81,9 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public List<BookingViewBean> findAll() throws Exception {
 		List<Booking> bookings = bookingDao.findAll();
+		
+		if (bookings == null)
+			throw new BookingException();
 
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
 
@@ -92,11 +95,13 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public List<BookingViewBean> findAllByUserId(BookingFilter bookingFilter) throws Exception {
+	public List<BookingViewBean> findAllByFilter(BookingFilter bookingFilter) throws Exception {
 
 		List<Booking> bookings = bookingDao.findBookingByFilters(bookingFilter);
+		if (bookings == null)
+			throw new BookingException();
+		
 		List<BookingViewBean> bookingViewBeans = new ArrayList<BookingViewBean>();
-
 		for (Booking b : bookings) {
 			bookingViewBeans.add(fillBookingViewBean(b));
 		}

@@ -4,6 +4,7 @@ import java.sql.Date;
 
 
 public class BookingFilter {
+	private String username;
 	private String name;
 	private String surname;
 	private String vehicle;
@@ -75,6 +76,14 @@ public class BookingFilter {
 
 	public void setTransportId(int transportId) {
 		this.transportId = transportId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }
