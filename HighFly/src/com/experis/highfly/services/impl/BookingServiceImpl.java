@@ -65,6 +65,7 @@ public class BookingServiceImpl implements BookingService {
 
 		// Recupero del trasporto
 		Transport transport = transportDao.find(bookingViewBean.getTransportViewBean().getIdTransport());
+		booking.setId(bookingViewBean.getId());
 		booking.setTransport(transport);
 		booking.setName(bookingViewBean.getName());
 		booking.setSurname(bookingViewBean.getSurname());
@@ -125,6 +126,7 @@ public class BookingServiceImpl implements BookingService {
 		if (booking == null || transport == null)
 			throw new BookingException();
 
+		booking.setId(bookingViewBean.getId());
 		booking.setName(bookingViewBean.getName());
 		booking.setSurname(bookingViewBean.getSurname());
 		booking.setPriceTot(bookingViewBean.getTransportViewBean().getPrice());
@@ -160,6 +162,7 @@ public class BookingServiceImpl implements BookingService {
 		tvb.setPrice(b.getTransport().getPrice());
 		tvb.setVehicle(b.getTransport().getVehicle().getType());
 
+		bvb.setId(b.getId());
 		bvb.setSeats(b.getSeats());
 		bvb.setUsername(b.getClient().getUsername());
 		bvb.setName(b.getName());

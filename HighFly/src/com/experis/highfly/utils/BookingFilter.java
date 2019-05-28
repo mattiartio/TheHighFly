@@ -12,6 +12,7 @@ public class BookingFilter {
 	private Date dateFrom;
 	private Date dateTo;
 	private int userId;
+	private int bookingId;
 
 	public String getName() {
 		return name;
@@ -75,6 +76,22 @@ public class BookingFilter {
 
 	public void setTransportId(int transportId) {
 		this.transportId = transportId;
+	}
+
+	/**
+	 * @return the bookingId
+	 */
+	public int getBookingId()
+	{
+		return bookingId;
+	}
+
+	/**
+	 * @param bookingId the bookingId to set
+	 */
+	public void setBookingId(int bookingId)
+	{
+		this.bookingId = bookingId;
 	}
 
 }

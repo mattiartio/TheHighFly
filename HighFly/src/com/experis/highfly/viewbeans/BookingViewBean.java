@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class BookingViewBean {
 
+	private int id;
 	private String username;
 	private String name;
 	private String surname;
@@ -75,5 +76,21 @@ public class BookingViewBean {
 
 	public void setSeats(int seats) {
 		this.seats = seats;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId()
+	{
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }
