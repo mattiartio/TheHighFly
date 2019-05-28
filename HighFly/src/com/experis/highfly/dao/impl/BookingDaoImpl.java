@@ -87,6 +87,14 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 					query += " where t.id = :transport";
 				}
 			}
+			if ((Integer) bookingFilter.getBookingId() != null && (Integer) bookingFilter.getBookingId() != 0) {
+				if (condition) {
+					query += " and b.id = :booking";
+				} else {
+					condition = true;
+					query += " where b.id = :booking";
+				}
+			}
 
 			Query q = em.createQuery(query);
 
@@ -113,6 +121,9 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 			}
 			if ((Integer) bookingFilter.getTransportId() != null && (Integer) bookingFilter.getTransportId() != 0) {
 				q.setParameter("transport", bookingFilter.getTransportId());
+			}
+			if ((Integer) bookingFilter.getBookingId() != null && (Integer) bookingFilter.getBookingId() != 0) {
+				q.setParameter("booking", bookingFilter.getBookingId());
 			}
 
 			booking = (List<Booking>) q.getResultList();
