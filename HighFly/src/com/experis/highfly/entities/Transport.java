@@ -33,6 +33,9 @@ public class Transport implements Serializable {
 
 	@Column(name = "price", nullable = false)
 	private float price;
+	
+	@Column(name = "transport_name", nullable = false)
+	private String name;
 
 //	@OneToMany(mappedBy = "transport")
 //	private List<Booking> bookings;
@@ -85,4 +88,15 @@ public class Transport implements Serializable {
 		this.vehicle = vehicle;
 	}
 
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	
 }

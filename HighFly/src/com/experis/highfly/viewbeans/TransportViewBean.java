@@ -5,12 +5,14 @@ import java.util.Date;
 public class TransportViewBean {
 
 	private int idTransport;
+	private String name;
 	private float price;
 	private int maxSeats;
 	private String vehicle;
 	private Date dateFrom;
 	private Date dateTo;
 	private int numPosti;
+	
 
 	public int getIdTransport() {
 		return idTransport;
@@ -66,5 +68,21 @@ public class TransportViewBean {
 
 	public void setNumPosti(int numPosti) {
 		this.numPosti = numPosti;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 }

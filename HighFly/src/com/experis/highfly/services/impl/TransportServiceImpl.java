@@ -45,6 +45,7 @@ public class TransportServiceImpl implements TransportService {
 		t.setMaxSeats(transportVB.getMaxSeats());
 		t.setPrice(transportVB.getPrice());
 		t.setVehicle(vehicleDao.findByType(transportVB.getVehicle()));
+		t.setName(transportVB.getName());
 
 		transportDao.insert(t);
 		return transportVB;
@@ -102,6 +103,7 @@ public class TransportServiceImpl implements TransportService {
 		transportViewBean.setNumPosti(numPosti);
 		transportViewBean.setDateFrom(dateFrom);
 		transportViewBean.setDateTo(dateTo);
+		transportViewBean.setName(transport.getName());
 		return transportViewBean;
 	}
 	

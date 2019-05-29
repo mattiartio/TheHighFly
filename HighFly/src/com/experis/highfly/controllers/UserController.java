@@ -27,7 +27,7 @@ public class UserController {
     //-------------------Retrieve Single User--------------------------------------------------------
       
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<ResponseMessage> getUser(@PathVariable("id") long id) {
+    public ResponseEntity<ResponseMessage> getUser(@PathVariable("id") Long id) {
         System.out.println("Fetching User with id " + id);	//DA CREARE IL MESSAGGIO
         UserViewBean user;
         ResponseMessage message = new ResponseMessage();

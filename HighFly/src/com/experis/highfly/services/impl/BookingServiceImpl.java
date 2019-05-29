@@ -161,6 +161,7 @@ public class BookingServiceImpl implements BookingService {
 		tvb.setMaxSeats(b.getTransport().getMaxSeats());
 		tvb.setPrice(b.getTransport().getPrice());
 		tvb.setVehicle(b.getTransport().getVehicle().getType());
+		tvb.setName(b.getTransport().getName());
 
 		bvb.setId(b.getId());
 		bvb.setSeats(b.getSeats());
