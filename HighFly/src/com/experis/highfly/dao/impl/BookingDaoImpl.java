@@ -38,6 +38,14 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 					query += " where b.surname = :sur";
 				}
 			}
+			if (bookingFilter.getUsername() != null && !bookingFilter.getUsername().isEmpty()) {
+				if (condition) {
+					query += " and u.username = :username";
+				} else {
+					condition = true;
+					query += " where u.username = :username";
+				}
+			}
 			if (bookingFilter.getVehicle() != null && !bookingFilter.getVehicle().isEmpty()) {
 
 				if (condition) {
@@ -124,6 +132,9 @@ public class BookingDaoImpl extends GenericDaoImpl<Booking> implements BookingDa
 			}
 			if ((Integer) bookingFilter.getBookingId() != null && (Integer) bookingFilter.getBookingId() != 0) {
 				q.setParameter("booking", bookingFilter.getBookingId());
+			}
+			if (bookingFilter.getUsername() != null) {
+				q.setParameter("username", bookingFilter.getUsername());
 			}
 
 			booking = (List<Booking>) q.getResultList();
