@@ -26,25 +26,53 @@ public class BookingController {
 	@Autowired
 	private BookingService bookingService;
 
-	// -------------------Retrieve All
-	// bookings--------------------------------------------------------
-	@RequestMapping(value = "/listall", method = RequestMethod.GET)
-	public ResponseEntity<ResponseMessage> listAllbookings() {
-		List<BookingViewBean> bookings;
-		try {
-			// esemipo di messaggio di risposta personalizzato
+	// -------------------Retrieve All bookings By Customer's username------------------------
+
+	@RequestMapping(value = "/myList/{usernameUser}", method = RequestMethod.GET)
+	public ResponseEntity<ResponseMessage> getBookingsByUsername(@PathVariable("usernameUser") String usernameUser) {
+			
+			BookingFilter bookingFilter=new BookingFilter();
+		    bookingFilter.setUsername(usernameUser);
+
+			List<BookingViewBean> userBookings;
 			ResponseMessage rm = new ResponseMessage();
 
-			bookings = bookingService.findAll();
-			if (bookings.isEmpty()) {
+			try {
+
+				userBookings = bookingService.findAllByFilter(bookingFilter);
+				rm.setResponseStatus(ResponseStatus.OK);
+				rm.setMessage(ResponseStatus.OK.getDescription());
+				rm.setData(userBookings);
+				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
+
+			} catch (BookingException e) {
 				rm.setResponseStatus(ResponseStatus.LIST_NOT_FOUND);
 				rm.setMessage(ResponseStatus.LIST_NOT_FOUND.getDescription());
 				return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<ResponseMessage>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
+		}
+
+
+	// -------------------Retrieve All bookings------------------------------
+	@RequestMapping(value = "/listall", method = RequestMethod.GET)
+	public ResponseEntity<ResponseMessage> listAllbookings() {
+		List<BookingViewBean> bookings;
+		ResponseMessage rm = new ResponseMessage();
+	
+		try {
+			bookings = bookingService.findAll();
 			rm.setResponseStatus(ResponseStatus.OK);
 			rm.setMessage(ResponseStatus.OK.getDescription());
 			rm.setData(bookings);
 			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
+		}catch (BookingException e) {
+			rm.setResponseStatus(ResponseStatus.LIST_NOT_FOUND);
+			rm.setMessage(ResponseStatus.LIST_NOT_FOUND.getDescription());
+			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,19 +80,16 @@ public class BookingController {
 		}
 	}
 
-	// -------------------Retrieve All bookings By
-	// Customer--------------------------------------------------------
+	// -------------------Retrieve All bookings /filteredList-------------------------
 
-	@RequestMapping(value = "/myList", method = RequestMethod.POST)
-	public ResponseEntity<ResponseMessage> getBookingsByUser(@RequestBody BookingFilter bookingFilter) {
-		System.out.println("Bookinsg of " + bookingFilter.getUserId());
+	@RequestMapping(value = "/filteredList", method = RequestMethod.POST)
+	public ResponseEntity<ResponseMessage> getBookingsFiltered(@RequestBody BookingFilter bookingFilter) {
 
 		List<BookingViewBean> userBookings;
 		ResponseMessage rm = new ResponseMessage();
 
 		try {
-			// controllo dei dati
-			userBookings = bookingService.findAllByUserId(bookingFilter);
+			userBookings = bookingService.findAllByFilter(bookingFilter);
 			rm.setResponseStatus(ResponseStatus.OK);
 			rm.setMessage(ResponseStatus.OK.getDescription());
 			rm.setData(userBookings);
@@ -81,9 +106,11 @@ public class BookingController {
 		}
 	}
 
-	// -------------------Retrieve Single
-	// Booking--------------------------------------------------------
+	// -------------------Retrieve Single Booking------------------------------
 
+	
+	// -------------------Retrive booking by booking ID -------------------------------
+	
 	@RequestMapping(value = "/details/{id_booking}", method = RequestMethod.GET)
 	public ResponseEntity<ResponseMessage> getBooking(@PathVariable("id_booking") int id_booking) {
 		System.out.println("Fetching booking with id " + id_booking);
@@ -91,7 +118,6 @@ public class BookingController {
 		BookingViewBean bookingViewBean;
 
 		try {
-			// esemipo di messaggio di risposta personalizzato
 
 			bookingViewBean = bookingService.findByBookingId(id_booking);
 			rm.setResponseStatus(ResponseStatus.OK);
@@ -110,8 +136,8 @@ public class BookingController {
 		}
 	}
 
-	// -------------------Create a
-	// booking--------------------------------------------------------
+	
+	// -------------------Create a booking-------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<ResponseMessage> createbooking(@RequestBody BookingViewBean bookingViewBean,
@@ -141,8 +167,7 @@ public class BookingController {
 
 	}
 
-	// ------------------- Update a booking
-	// --------------------------------------------------------
+	// ------------------- Update a booking ---------------------------------------
 
 	@RequestMapping(value = "/update/{bookingID}", method = RequestMethod.PUT)
 	public ResponseEntity<ResponseMessage> updateBooking(@PathVariable("bookingID") int bookingID,
@@ -172,8 +197,7 @@ public class BookingController {
 
 	}
 
-	// -------------------Delete a
-	// booking--------------------------------------------------------
+	// -------------------Delete a booking---------------------------------
 
 	@RequestMapping(value = "/delete/{bookingID}", method = RequestMethod.GET)
 	public ResponseEntity<ResponseMessage> deleteBooking(@PathVariable int bookingID) {

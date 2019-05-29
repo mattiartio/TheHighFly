@@ -12,7 +12,7 @@ public interface BookingService {
 
 	List<BookingViewBean> findAll() throws Exception;
 
-	List<BookingViewBean> findAllByUserId(BookingFilter bookingFilter) throws Exception;
+	List<BookingViewBean> findAllByFilter(BookingFilter bookingFilter) throws Exception;
 
 	BookingViewBean findByBookingId(int bookingId) throws BookingException;
 
