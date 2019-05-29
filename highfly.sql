@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 20, 2019 alle 14:23
+-- Creato il: Mag 29, 2019 alle 16:56
 -- Versione del server: 10.1.38-MariaDB
 -- Versione PHP: 7.1.28
 
@@ -34,8 +34,20 @@ CREATE TABLE `booking` (
   `transport_id` int(30) NOT NULL,
   `booking_date_from` date NOT NULL,
   `booking_date_to` date NOT NULL,
-  `booking_price_tot` float NOT NULL
+  `booking_price_tot` float NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `surname` varchar(30) NOT NULL,
+  `number_seats` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `booking`
+--
+
+INSERT INTO `booking` (`booking_id`, `user_id`, `transport_id`, `booking_date_from`, `booking_date_to`, `booking_price_tot`, `name`, `surname`, `number_seats`) VALUES
+(46, 2, 1, '2019-05-06', '2019-05-07', 250, 'luss', 'admin', 4),
+(47, 2, 1, '2019-05-06', '2019-05-07', 250, 'luss', 'admin', 4),
+(48, 2, 1, '2019-05-06', '2019-05-07', 250, 'luss', 'admin', 4);
 
 -- --------------------------------------------------------
 
@@ -66,8 +78,16 @@ CREATE TABLE `transport` (
   `transport_id` int(20) NOT NULL,
   `transport_type` int(20) NOT NULL,
   `max_seats` int(5) NOT NULL,
-  `price` float NOT NULL
+  `price` float NOT NULL,
+  `transport_name` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `transport`
+--
+
+INSERT INTO `transport` (`transport_id`, `transport_type`, `max_seats`, `price`, `transport_name`) VALUES
+(1, 1, 241, 250, 'Lamborghini Boeing 101');
 
 -- --------------------------------------------------------
 
@@ -91,7 +111,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `name`, `surname`, `email`, `company`, `user_role`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin', 'admin.admin@admin.admin', 'admin', 1);
+(1, 'admin', 'admin', 'admin', 'admin', 'admin.admin@admin.admin', 'admin', 1),
+(2, 'pippo', 'pippo', 'pippo', 'pippo', 'pippo@pippo.pippo', NULL, 2),
+(8, 'poppi', 'pippo', 'pippo', 'pippo', 'pippo@pippo.pippo', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -162,7 +184,7 @@ ALTER TABLE `vehicle`
 -- AUTO_INCREMENT per la tabella `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT per la tabella `role`
@@ -174,13 +196,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT per la tabella `transport`
 --
 ALTER TABLE `transport`
-  MODIFY `transport_id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `transport_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `vehicle`
