@@ -25,6 +25,8 @@ import com.experis.highfly.entities.Booking;
 import com.experis.highfly.entities.Transport;
 import com.experis.highfly.entities.User;
 import com.experis.highfly.exception.BookingException;
+import com.experis.highfly.exception.DateException;
+import com.experis.highfly.exception.SaveException;
 import com.experis.highfly.services.BookingService;
 import com.experis.highfly.utils.BookingFilter;
 import com.experis.highfly.viewbeans.BookingViewBean;
@@ -54,9 +56,12 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	// @RequiredTx
 
-	public BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception, BookingException {
+	public BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception, BookingException, DateException {
 
 		Booking booking = new Booking();
+		
+		if (bookingViewBean.getDataFrom().getTime() > bookingViewBean.getDataTo().getTime() || bookingViewBean.getDataTo().getTime() < bookingViewBean.getDataFrom().getTime())
+			throw new DateException();
 
 		// Recupero dell'user
 

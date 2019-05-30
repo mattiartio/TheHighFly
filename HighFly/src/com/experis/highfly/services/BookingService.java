@@ -3,12 +3,13 @@ package com.experis.highfly.services;
 import java.util.List;
 
 import com.experis.highfly.exception.BookingException;
+import com.experis.highfly.exception.DateException;
 import com.experis.highfly.utils.BookingFilter;
 import com.experis.highfly.viewbeans.BookingViewBean;
 
 public interface BookingService {
 
-	BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception;
+	BookingViewBean createNewBooking(BookingViewBean bookingViewBean) throws Exception, BookingException, DateException;
 
 	List<BookingViewBean> findAll() throws Exception;
 

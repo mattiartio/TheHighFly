@@ -16,6 +16,7 @@ import com.experis.highfly.dao.VehicleDao;
 import com.experis.highfly.entities.Booking;
 import com.experis.highfly.entities.Transport;
 import com.experis.highfly.entities.Vehicle;
+import com.experis.highfly.exception.DateException;
 import com.experis.highfly.services.TransportService;
 import com.experis.highfly.utils.BookingFilter;
 import com.experis.highfly.viewbeans.TransportViewBean;
@@ -108,7 +109,11 @@ public class TransportServiceImpl implements TransportService {
 	}
 	
 	@Override
-	public List<TransportViewBean> findAvailableTransport(Date dateFrom, Date dateTo, String type, int numPosti)  throws Exception {
+	public List<TransportViewBean> findAvailableTransport(Date dateFrom, Date dateTo, String type, int numPosti)  throws Exception, DateException {
+		
+		if (dateFrom.getTime() > dateTo.getTime() || dateTo.getTime() < dateFrom.getTime())
+			throw new DateException();
+		
 		List<Transport> transports = transportDao.findAvailableTransport(dateFrom, dateTo, type, numPosti);
 		List<TransportViewBean> transportViewBeans = new ArrayList<TransportViewBean>();
 		

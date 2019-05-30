@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.experis.highfly.exception.BookingException;
+import com.experis.highfly.exception.DateException;
 import com.experis.highfly.messages.ResponseMessage;
 import com.experis.highfly.messages.ResponseStatus;
 import com.experis.highfly.services.BookingService;
@@ -140,8 +140,7 @@ public class BookingController {
 	// -------------------Create a booking-------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<ResponseMessage> createbooking(@RequestBody BookingViewBean bookingViewBean,
-			UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<ResponseMessage> createbooking(@RequestBody BookingViewBean bookingViewBean) {
 		System.out.println("Creating new booking ");
 
 		BookingViewBean confirmedBookingViewBean = null;
@@ -155,6 +154,10 @@ public class BookingController {
 			rm.setData(confirmedBookingViewBean);
 			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
 
+		} catch(DateException e) {
+			rm.setResponseStatus(ResponseStatus.DATE_ERROR);
+			rm.setMessage(ResponseStatus.DATE_ERROR.getDescription());
+			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
 		} catch (BookingException e) {
 			rm.setResponseStatus(ResponseStatus.BOOKING_NOT_FOUND);
 			rm.setMessage(ResponseStatus.BOOKING_NOT_FOUND.getDescription());

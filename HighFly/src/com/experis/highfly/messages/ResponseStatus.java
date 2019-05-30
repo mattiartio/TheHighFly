@@ -16,7 +16,9 @@ public enum ResponseStatus
 	
 	DUPLICATE_RECORD(7, "Record already in database"),
 	
-	TRANSPORT_NOT_FOUND(8, "Transport not found");
+	TRANSPORT_NOT_FOUND(8, "Transport not found"),
+	
+	DATE_ERROR(9, "Dates inconsistent");
 	
 	
 	

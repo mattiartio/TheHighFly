@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.experis.highfly.exception.DateException;
 import com.experis.highfly.messages.ResponseMessage;
 import com.experis.highfly.messages.ResponseStatus;
 import com.experis.highfly.services.TransportService;
@@ -169,7 +170,13 @@ public class TransportController {
 				return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
 			}
 
-		} catch (Exception e) {
+		} catch (DateException e) {
+			e.printStackTrace();
+			message.setResponseStatus(ResponseStatus.DATE_ERROR);
+			message.setMessage(ResponseStatus.DATE_ERROR.getDescription());
+			return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			message.setResponseStatus(ResponseStatus.INTERNAL_SERVER_ERROR);
 			message.setMessage(ResponseStatus.INTERNAL_SERVER_ERROR.getDescription());
