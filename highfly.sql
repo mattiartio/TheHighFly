@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 29, 2019 alle 16:56
+-- Creato il: Mag 30, 2019 alle 15:27
 -- Versione del server: 10.1.38-MariaDB
 -- Versione PHP: 7.1.28
 
@@ -45,9 +45,14 @@ CREATE TABLE `booking` (
 --
 
 INSERT INTO `booking` (`booking_id`, `user_id`, `transport_id`, `booking_date_from`, `booking_date_to`, `booking_price_tot`, `name`, `surname`, `number_seats`) VALUES
-(46, 2, 1, '2019-05-06', '2019-05-07', 250, 'luss', 'admin', 4),
-(47, 2, 1, '2019-05-06', '2019-05-07', 250, 'luss', 'admin', 4),
-(48, 2, 1, '2019-05-06', '2019-05-07', 250, 'luss', 'admin', 4);
+(52, 2, 1, '2019-05-02', '2019-05-07', 250, 'luss', 'admin', 4),
+(53, 2, 1, '2019-05-06', '2019-05-07', 250, 'luss', 'admin', 4),
+(54, 2, 1, '2019-05-06', '2019-05-07', 250, 'luss', 'admin', 4),
+(56, 1, 1, '2019-05-03', '2019-05-11', 2500, 'pippo', 'troppo', 10),
+(57, 1, 2, '2020-12-25', '2020-12-26', 3000, 'Simone', 'Colella', 12),
+(58, 2, 1, '1990-01-20', '2000-01-22', 500, 'Gabriele', 'Saponangelo', 2),
+(59, 2, 2, '2019-05-01', '2019-05-18', 500, 'eee', 'eee', 2),
+(60, 2, 3, '2019-05-02', '2019-05-04', 100, 'Simone', 'Colella', 5);
 
 -- --------------------------------------------------------
 
@@ -87,7 +92,10 @@ CREATE TABLE `transport` (
 --
 
 INSERT INTO `transport` (`transport_id`, `transport_type`, `max_seats`, `price`, `transport_name`) VALUES
-(1, 1, 241, 250, 'Lamborghini Boeing 101');
+(1, 1, 241, 250, 'Lamborghini Boeing 101'),
+(2, 1, 241, 250, 'Ferrari Boeing 101'),
+(3, 3, 6, 20, 'Multipla'),
+(4, 3, 5, 10, 'Panda');
 
 -- --------------------------------------------------------
 
@@ -184,7 +192,7 @@ ALTER TABLE `vehicle`
 -- AUTO_INCREMENT per la tabella `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT per la tabella `role`
@@ -196,7 +204,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT per la tabella `transport`
 --
 ALTER TABLE `transport`
-  MODIFY `transport_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `transport_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `user`
