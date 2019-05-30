@@ -173,7 +173,7 @@ public class BookingServiceImpl implements BookingService {
 		bvb.setUsername(b.getClient().getUsername());
 		bvb.setName(b.getName());
 		bvb.setSurname(b.getSurname());
-		bvb.setPrice(b.getTransport().getPrice());
+		bvb.setPrice(b.getPriceTot());
 		bvb.setDataFrom(b.getDateFrom());
 		bvb.setDataTo(b.getDateTo());
 		bvb.setTransportViewBean(tvb);

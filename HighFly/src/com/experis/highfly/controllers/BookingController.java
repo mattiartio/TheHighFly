@@ -158,7 +158,7 @@ public class BookingController {
 		} catch (BookingException e) {
 			rm.setResponseStatus(ResponseStatus.BOOKING_NOT_FOUND);
 			rm.setMessage(ResponseStatus.BOOKING_NOT_FOUND.getDescription());
-			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
 
 		} catch (Exception e) {
 			e.printStackTrace();
