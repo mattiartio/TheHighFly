@@ -40,7 +40,9 @@ public class TransportDaoImpl extends GenericDaoImpl<Transport> implements Trans
 					+ "((b.dateFrom >= :dataInizio and b.dateTo <= :dataFine) or"
 					+ "(b.dateFrom <= :dataInizio and b.dateTo >= :dataFine)) and "
 					+ ")"
-					+ "t.vehicle.type = :type");
+					+ "t.vehicle.type = :type "
+					+ "and t.maxSeats > :numPosti");
+			q.setParameter("numPosti", numPosti);
 		}
 		else {
 			q = em.createQuery("select t from Transport t where t.id not in "
@@ -51,7 +53,8 @@ public class TransportDaoImpl extends GenericDaoImpl<Transport> implements Trans
 					+ "group by tr.id "
 					+ "having sum (b.seats) > t.maxSeats - :numPosti"
 					+ ")"
-					+ "and t.vehicle.type = :type ");
+					+ "and t.vehicle.type = :type "
+					+ "and t.maxSeats > :numPosti");
 			q.setParameter("numPosti", numPosti);
 		}
 		

@@ -130,7 +130,7 @@ public class TransportController {
 			if (transports.isEmpty()) {
 				message.setResponseStatus(ResponseStatus.TRANSPORT_NOT_FOUND);
 				message.setMessage("No transport in database");
-				return new ResponseEntity<ResponseMessage>(message, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
 			} else {
 				message.setData(transports);
 				message.setResponseStatus(ResponseStatus.OK);
@@ -156,10 +156,10 @@ public class TransportController {
 			transports = transportService.findAvailableTransport(transportViewBean.getDateFrom(),
 					transportViewBean.getDateTo(), transportViewBean.getVehicle(), transportViewBean.getNumPosti());
 
-			if (transports.isEmpty()) {
+			if (transports == null || transports.isEmpty()) {
 				message.setResponseStatus(ResponseStatus.LIST_NOT_FOUND);
 				message.setMessage(ResponseStatus.LIST_NOT_FOUND.getDescription());
-				return new ResponseEntity<ResponseMessage>(message, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
 			}
 
 			else {

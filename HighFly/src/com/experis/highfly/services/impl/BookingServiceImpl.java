@@ -71,7 +71,7 @@ public class BookingServiceImpl implements BookingService {
 		booking.setSurname(bookingViewBean.getSurname());
 		booking.setDateFrom(bookingViewBean.getDataFrom());
 		booking.setDateTo(bookingViewBean.getDataTo());
-		booking.setPriceTot(transport.getPrice());
+		booking.setPriceTot(bookingViewBean.getTransportViewBean().getNumPosti() * transport.getPrice());
 		booking.setSeats(bookingViewBean.getSeats());
 
 		bookingDao.insert(booking);
